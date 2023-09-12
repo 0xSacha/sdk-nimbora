@@ -12,105 +12,186 @@ export enum ERROR_CODE {
   UNSUPPORTED_CHAIN_ID = 200,
   PROVIDER_REQUIRED = 400,
   AMOUNT_NUL = 401,
-  NOT_SUPPORTED_TOKEN = 402,
-  INVALID_ETHEREUM_ADDRESS = 403,
-  NOT_ENOUGHT_TOKEN = 404,
-  NOT_ENOUGHT_ETH = 405,
-  AMOUNT_TO_LOW_LIMIT = 406,
-  AMOUNT_TO_HIGH_LIMIT = 407,
-  APPROVAL_REQUIRED = 408,
-  NOTHING_TO_APPROVE = 409
+  NOT_SUPPORTED_TROVE = 402,
+  NOT_ENOUGHT_LUSD = 403,
+  NOT_ENOUGHT_ETH = 404,
+  APPROVAL_REQUIRED = 405,
+  NOTHING_TO_APPROVE = 406
 }
 
-// Handle Fast Withdraw
-export type RequestWithdrawalProps = {
-  token: string,
-  amount: bigint,
-  l1Recipient: string,
+
+// web3Utils
+
+export type GetAllowanceProps = {
+  tokenAddress: string,
+  userAddress: string,
+  spender: string,
+};
+
+export type GetBalanceProps = {
+  tokenAddress: string,
+  userAddress: string,
+};
+
+
+
+
+// Getters
+
+export type GetAllowanceLiquityProps = {
+  troveAddress: string,
+  userAddress: string,
+};
+
+export type GetAllowanceLiquityRes = {
+  allowanceEth: bigint,
+  allowanceLusd: bigint,
+};
+
+export type GetUsersInBatchLiquityProps = {
+  troveAddress: string,
+  batchNonce: number,
+};
+
+export type GetUsersInBatchLiquityRes = {
+  borrowList: string[],
+  repayList: string[],
+};
+
+export type GetUserAmountInBatchLiquityProps = {
+  troveAddress: string,
+  batchNonce: number,
+  userAddress: string
+};
+
+export type GetUserAmountInBatchLiquityRes = {
+  borrowAmount: bigint,
+  repayAmount: bigint
+};
+
+export type GetUserGasInBatchLiquityProps = {
+  troveAddress: string,
+  batchNonce: bigint,
+  userAddress: string
+};
+
+export type GetUserDebtLiquityProps = {
+  troveAddress: string,
+  userAddress: string
+};
+
+export type GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
+  troveAddress: string,
+  userAddress: string,
+  closeBatch: boolean
+};
+
+
+// Checkers
+
+export type CheckBalanceBorrowLiquityProps = {
+  troveAddress: string,
+  ethAmount: bigint,
+  closeBatch: boolean,
+  userAddress: string
+};
+
+export type CheckBalanceRepayLiquityProps = {
+  troveAddress: string,
+  lusdAmount: bigint,
+  closeBatch: boolean,
+  userAddress: string
+};
+
+export type CheckBalanceRepayLiquityRes = {
+  isEnoughLusd: boolean,
+  isEnoughEth: boolean
+};
+
+export type CheckAllowanceBorrowLiquityProps = {
+  troveAddress: string,
+  ethAmount: bigint,
+  closeBatch: boolean,
+  userAddress: string
+};
+
+export type CheckAllowanceRepayLiquityProps = {
+  troveAddress: string,
+  lusdAmount: bigint,
+  closeBatch: boolean,
+  userAddress: string
+};
+
+export type CheckAllowanceRepayLiquityRes = {
+  isEnoughAllowanceLusd: boolean,
+  isEnoughAllowanceEth: boolean
+};
+
+
+
+// Builders
+
+export type BuildCallDataApproveBorrowLiquityProps = {
+  troveAddress: string,
+  userAddress: string,
+  ethAmount: bigint,
+  closeBatch: boolean
+};
+
+
+export type BuildCallDataApproveRepayLiquityProps = {
+  troveAddress: string,
+  userAddress: string,
+  lusdAmount: bigint,
+  closeBatch: boolean,
+  isEnoughtAllowanceLusd?: boolean,
+  isEnoughtAllowanceEth?: boolean,
+};
+
+export type BuildCallDataApproveRepayLiquityRes = {
+  lusdApproveCall?: Call,
+  ethApproveCall?: Call,
+};
+
+
+export type BuildCallDataBorrowLiquityProps = {
+  troveAddress: string,
+  userAddress: string,
+  ethAmount: bigint,
+  closeBatch: boolean
+};
+
+export type BuildCallDataRepayLiquityProps = {
+  troveAddress: string,
+  userAddress: string,
+  lusdAmount: bigint,
+  closeBatch: boolean
+};
+
+
+
+// Handlers
+
+export type handleBorrowLiquityProps = {
+  troveAddress: string,
+  ethAmount: bigint,
+  closeBatch?: boolean,
+  allowApprove?: boolean,
+  referral?: string;
+};
+
+export type handleRepayLiquityProps = {
+  troveAddress: string,
+  lusdAmount: bigint,
+  closeBatch?: boolean,
   allowApprove?: boolean,
   referral?: string;
 };
 
 
-// Getters
-export type ExecutFastWithdrawalProps = {
-  token: string,
-  amount: bigint,
-  l1Recipient: string
-};
-export type GetAllowanceFwProps = {
-  tokenAddress: string,
-  userAddress: string,
-};
-export type GetBalanceProps = {
-  tokenAddress: string,
-  userAddress: string,
-};
-export type GetLimitRes = {
-  limitLow: bigint,
-  limitHigh: bigint,
-};
-
-export type QuoteFwResProps = {
-  tokenAddress: string,
-  desiredAmount: bigint,
-};
-
-export type QuoteFwRes = {
-  gasCost: bigint,
-  receiveAmount: bigint,
-  bridgeDelay: number,
-  refundDelay: number
-};
-
-// Checkers
-export type CheckBalanceFwProps = {
-  tokenAddress: string,
-  userAddress: string,
-  desiredAmount: bigint
-};
-export type CheckBalanceFwRes = {
-  isEnoughtToken: boolean,
-  isEnoughtEth: boolean,
-};
-export type CheckAllowanceFwProps = {
-  tokenAddress: string,
-  userAddress: string,
-  desiredAmount: bigint
-};
-export type CheckAllowanceFwRes = {
-  isEnoughtAllowanceToken: boolean,
-  isEnoughtAllowanceEth: boolean,
-};
-export type CheckLimitFwProps = {
-  tokenAddress: string,
-  desiredAmount: bigint
-};
-export type CheckLimitFwRes = {
-  isLowThresholdReached: boolean,
-  isHighThresholdReached: boolean,
-};
 
 
-// CallData builders
-export type BuildCallDataApproveFwProps = {
-  tokenAddress: string,
-  userAddress: string,
-  desiredAmount: bigint,
-  isEnoughtAllowanceToken?: boolean,
-  isEnoughtAllowanceEth?: boolean,
+export type TroveInfo = {
+  id: string;
+  address: string;
 };
-
-// CallData builders
-export type BuildCallDataApproveFwRes = {
-  tokenApproveCall: Call,
-  ethApproveCall?: Call,
-};
-
-export type BuildCallDataDepositFwProps = {
-  tokenAddress: string,
-  desiredAmount: bigint,
-  l1Recipient: string
-};
-
-

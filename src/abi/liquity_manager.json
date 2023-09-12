@@ -1,0 +1,516 @@
+[
+  {
+    "name": "liquity::interfaces::itoken_bridge::ITokenBridgeDispatcher",
+    "type": "struct",
+    "members": [
+      {
+        "name": "contract_address",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ]
+  },
+  {
+    "name": "constructor",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove_class_hash",
+        "type": "core::starknet::class_hash::ClassHash"
+      },
+      {
+        "name": "owner",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "eth_bridge",
+        "type": "liquity::interfaces::itoken_bridge::ITokenBridgeDispatcher"
+      },
+      {
+        "name": "lusd_bridge",
+        "type": "liquity::interfaces::itoken_bridge::ITokenBridgeDispatcher"
+      },
+      {
+        "name": "l1_liquity",
+        "type": "core::starknet::eth_address::EthAddress"
+      },
+      {
+        "name": "selector_l1_gas_price",
+        "type": "core::felt252"
+      },
+      {
+        "name": "selector_l1_last_update",
+        "type": "core::felt252"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "deploy_trove",
+    "type": "function",
+    "inputs": [],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "register_trove",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove_address",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "liquity::interfaces::itrove::ITroveDispatcher",
+    "type": "struct",
+    "members": [
+      {
+        "name": "contract_address",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ]
+  },
+  {
+    "name": "pause_borrow",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove",
+        "type": "liquity::interfaces::itrove::ITroveDispatcher"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "unpause_borrow",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove",
+        "type": "liquity::interfaces::itrove::ITroveDispatcher"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "pause_repay",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove",
+        "type": "liquity::interfaces::itrove::ITroveDispatcher"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "unpause_repay",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove",
+        "type": "liquity::interfaces::itrove::ITroveDispatcher"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "pause",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove",
+        "type": "liquity::interfaces::itrove::ITroveDispatcher"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "unpause",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove",
+        "type": "liquity::interfaces::itrove::ITroveDispatcher"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "set_trove_class_hash",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove_class_hash",
+        "type": "core::starknet::class_hash::ClassHash"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "update_trove_class_hash",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove",
+        "type": "liquity::interfaces::itrove::ITroveDispatcher"
+      },
+      {
+        "name": "class_hash",
+        "type": "core::felt252"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "is_registered",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "trove_address",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "core::felt252"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "set_relayer",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "relayer",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "set_eth_bridge",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "eth_bridge",
+        "type": "liquity::interfaces::itoken_bridge::ITokenBridgeDispatcher"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "set_lusd_bridge",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "lusd_bridge",
+        "type": "liquity::interfaces::itoken_bridge::ITokenBridgeDispatcher"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "set_batch_gas_unit_per_user",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "gas_fee_per_user",
+        "type": "core::integer::u256"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "set_fees_collector",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "fees_collector",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "set_l1_gas_price_oracle_address",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "l1_gas_price_oracle_address",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "set_batch_gas_uint",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "gas_unit",
+        "type": "core::integer::u256"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "set_selector_l1_gas_price",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "selector_l1_gas_price",
+        "type": "core::felt252"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "set_selector_l1_last_update",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "selector_l1_last_update",
+        "type": "core::felt252"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "update_class_hash",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "class_hash",
+        "type": "core::felt252"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "owner",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "transfer_ownership",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "new_owner",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "renounce_ownership",
+    "type": "function",
+    "inputs": [],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "get_relayer",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_batch_gas_unit_per_user",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::integer::u256"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_eth_bridge",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "liquity::interfaces::itoken_bridge::ITokenBridgeDispatcher"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_lusd_bridge",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "liquity::interfaces::itoken_bridge::ITokenBridgeDispatcher"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_l1_gas_price_oracle_address",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_l1_gas_price",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::integer::u256"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_l1_last_update",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::integer::u64"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_batch_gas_uint",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::integer::u256"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_l1_liquity",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::starknet::eth_address::EthAddress"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_fees_collector",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_batch_gas_fee_per_user",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::integer::u256"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_selector_l1_gas_price",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::felt252"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "get_selector_l1_last_update",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::felt252"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "EthBridgeSet",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "address",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ]
+  },
+  {
+    "name": "LusdBridgeSet",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "address",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ]
+  },
+  {
+    "name": "RelayerSet",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "address",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ]
+  }
+]

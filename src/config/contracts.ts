@@ -1,27 +1,50 @@
-import * as fs from 'fs';
-import { StarkGateSDK } from '..';
-import { getEthAddress, getFastWithdrawalAddress } from './addresses';
-import { Contract, json } from 'starknet';
+import { NimboraSDK } from '..';
+import { getLiquityManagerAddress, getOracleAddress, getEthAddress, getLusdAddress } from './addresses';
+import { Contract } from 'starknet';
+import Erc20Abi from '@/abi/erc20.json';
+import TroveAbi from '@/abi/trove.json';
+import LiquityManagerAbi from '@/abi/liquity_manager.json';
+import OracleAbi from '@/abi/oracle.json';
 
-export function getFastWithdrawalContract(this: StarkGateSDK): Contract {
+export function getLiquityManagerContract(this: NimboraSDK): Contract {
   const { chainId, provider } = this;
-  const fastWithdrawalAddress = getFastWithdrawalAddress(chainId);
-  const compiledFastWithdrawal = json.parse(fs.readFileSync("../abi/fw_Fw.sierra.json").toString("ascii"));
-  const fastWithdrawalContract = new Contract(compiledFastWithdrawal.abi, fastWithdrawalAddress, provider);
-  return fastWithdrawalContract;
+  const liquityManagerAddress = getLiquityManagerAddress(chainId);
+  const liquityManagerContract = new Contract(LiquityManagerAbi, liquityManagerAddress, provider);
+  return liquityManagerContract;
 }
 
-export function getEthContract(this: StarkGateSDK): Contract {
+
+export function getTroveContract(this: NimboraSDK, troveAddress: string): Contract {
+  const { provider } = this;
+  const troveContract = new Contract(TroveAbi, troveAddress, provider);
+  return troveContract;
+}
+
+export function getOracleContract(this: NimboraSDK): Contract {
+  const { chainId, provider } = this;
+  const oracleAddress = getOracleAddress(chainId);
+  const oracleContract = new Contract(OracleAbi, oracleAddress, provider);
+  return oracleContract;
+}
+
+export function getEthContract(this: NimboraSDK): Contract {
   const { chainId } = this;
   const ethAddress = getEthAddress(chainId);
   return this.getTokenContract(ethAddress)
 }
 
+export function getLusdContract(this: NimboraSDK): Contract {
+  const { chainId } = this;
+  const lusdAddress = getLusdAddress(chainId);
+  return this.getTokenContract(lusdAddress)
+}
 
-export function getTokenContract(this: StarkGateSDK, tokenAddress: string): Contract {
+export function getTokenContract(this: NimboraSDK, tokenAddress: string): Contract {
   const { provider } = this;
-  const compiledErc20 = json.parse(fs.readFileSync("../abi/fw_ERC20.sierra.json").toString("ascii"));
-  const erc20Contract = new Contract(compiledErc20.abi, tokenAddress, provider);
+  const erc20Contract = new Contract(Erc20Abi, tokenAddress, provider);
   return erc20Contract;
 }
+
+
+
 
