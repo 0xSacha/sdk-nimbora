@@ -1,7 +1,7 @@
 {
-  "name": "starkgate-fw-sdk",
+  "name": "nimbora-sdk",
   "version": "1.0.0",
-  "description": "Bridge with a better UX, experience fast withdrawal or automatic withdrawal",
+  "description": "Interact with your favorite L1 protocols, at a fraction of the cost of L2!",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
