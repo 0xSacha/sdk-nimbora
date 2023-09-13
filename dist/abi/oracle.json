@@ -1,0 +1,99 @@
+[
+    {
+        "name": "constructor",
+        "type": "function",
+        "inputs": [
+            {
+                "name": "owner",
+                "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+                "name": "relayer",
+                "type": "core::starknet::contract_address::ContractAddress"
+            }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+    },
+    {
+        "name": "set_relayer",
+        "type": "function",
+        "inputs": [
+            {
+                "name": "relayer",
+                "type": "core::starknet::contract_address::ContractAddress"
+            }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+    },
+    {
+        "name": "set_l1_gas_price",
+        "type": "function",
+        "inputs": [
+            {
+                "name": "gas_price",
+                "type": "core::integer::u256"
+            }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+    },
+    {
+        "name": "get_relayer",
+        "type": "function",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "core::starknet::contract_address::ContractAddress"
+            }
+        ],
+        "state_mutability": "view"
+    },
+    {
+        "name": "get_l1_gas_price",
+        "type": "function",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "core::integer::u256"
+            }
+        ],
+        "state_mutability": "view"
+    },
+    {
+        "name": "get_l1_last_update",
+        "type": "function",
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "core::integer::u64"
+            }
+        ],
+        "state_mutability": "view"
+    },
+    {
+        "name": "RelayerSet",
+        "type": "event",
+        "inputs": [
+            {
+                "name": "address",
+                "type": "core::starknet::contract_address::ContractAddress"
+            }
+        ]
+    },
+    {
+        "name": "L1GasPriceSet",
+        "type": "event",
+        "inputs": [
+            {
+                "name": "gas_price",
+                "type": "core::integer::u256"
+            },
+            {
+                "name": "updated_at",
+                "type": "core::integer::u64"
+            }
+        ]
+    }
+]

@@ -1,8 +1,13 @@
 {
   "name": "nimbora-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Interact with your favorite L1 protocols, at a fraction of the cost of L2!",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc"
+  },
   "license": "MIT",
   "dependencies": {
     "ethers": "^5.7.0",

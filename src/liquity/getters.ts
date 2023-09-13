@@ -1,10 +1,9 @@
 import { NimboraSDK } from "..";
-import { BRIDGE_DELAY_TIMESTAMP, FEES_PRECISION } from "../config/constant";
-import { ERROR_CODE, GetAllowanceFwProps, GetAllowanceLiquityProps, GetAllowanceLiquityRes, GetAllowanceProps, GetBalanceProps, GetLimitRes, GetUserAmountInBatchLiquityProps, GetUserAmountInBatchLiquityRes, GetUsersInBatchLiquityProps, GetUsersInBatchLiquityRes, QuoteFwRes, QuoteFwResProps, GetUserGasInBatchLiquityProps, GetUserDebtLiquityProps, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps } from "../config/types";
+import { ERROR_CODE, GetAllowanceLiquityProps, GetAllowanceLiquityRes, GetAllowanceProps, GetUserAmountInBatchLiquityProps, GetUserAmountInBatchLiquityRes, GetUsersInBatchLiquityProps, GetUsersInBatchLiquityRes, GetUserGasInBatchLiquityProps, GetUserDebtLiquityProps, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps } from "../config/types";
 import { ErrorWrapper } from '../utils/errorWrapper';
 import { uint256 } from "starknet";
 import { getEthAddress, getLusdAddress } from "@/config/addresses";
-import { BigNumber, utils } from 'ethers';
+import { BigNumber } from 'ethers';
 
 
 
