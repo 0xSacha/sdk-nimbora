@@ -1,7 +1,7 @@
-import { getEthAddress, getLusdAddress, getTroveIdByChainIdAndAddress } from "@/config/addresses";
+import { getEthAddress, getLusdAddress, getTroveIdByChainIdAndAddress } from "../config/addresses";
 import { NimboraSDK } from "..";
 import { CheckBalanceBorrowLiquityProps, CheckBalanceRepayLiquityProps, CheckBalanceRepayLiquityRes, GetBalanceProps, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps, CheckAllowanceBorrowLiquityProps, GetAllowanceProps, CheckAllowanceRepayLiquityProps, CheckAllowanceRepayLiquityRes, ERROR_CODE } from "../config/types";
-import { ErrorWrapper } from "@/utils/errorWrapper";
+import { ErrorWrapper } from "../utils/errorWrapper";
 
 /**
  * Checks if a Trove exists based on its address.

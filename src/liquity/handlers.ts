@@ -1,5 +1,5 @@
 import { Account, Call } from 'starknet';
-import { NimboraSDK } from '@/.';
+import { NimboraSDK } from '../.';
 import {
   BuildCallDataApproveBorrowLiquityProps,
   BuildCallDataApproveRepayLiquityProps,
@@ -15,8 +15,8 @@ import {
   ERROR_CODE,
   handleBorrowLiquityProps,
   handleRepayLiquityProps,
-} from '@/config/types';
-import { ErrorWrapper } from '@/utils/errorWrapper';
+} from '../config/types';
+import { ErrorWrapper } from '../utils/errorWrapper';
 
 
 export async function handleBorrowLiquity(this: NimboraSDK, props: handleBorrowLiquityProps) {

@@ -1,10 +1,10 @@
 import { NimboraSDK } from '..';
 import { getLiquityManagerAddress, getOracleAddress, getEthAddress, getLusdAddress } from './addresses';
 import { Contract } from 'starknet';
-import Erc20Abi from '@/abi/erc20.json';
-import TroveAbi from '@/abi/trove.json';
-import LiquityManagerAbi from '@/abi/liquity_manager.json';
-import OracleAbi from '@/abi/oracle.json';
+import Erc20Abi from '../abi/erc20.json';
+import TroveAbi from '../abi/trove.json';
+import LiquityManagerAbi from '../abi/liquity_manager.json';
+import OracleAbi from '../abi/oracle.json';
 
 export function getLiquityManagerContract(this: NimboraSDK): Contract {
   const { chainId, provider } = this;

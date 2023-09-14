@@ -1,4 +1,4 @@
-import { ERROR_CODE_DESC, ERROR_MESSAGE } from '@/config/constant';
+import { ERROR_CODE_DESC, ERROR_MESSAGE } from '../config/constant';
 
 interface IErrorWrapper {
   code: number;

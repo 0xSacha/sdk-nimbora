@@ -1,6 +1,6 @@
 {
   "name": "nimbora-sdk",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "description": "Interact with your favorite L1 protocols, at a fraction of the cost of L2!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,11 +10,14 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^29.5.4",
     "ethers": "^5.7.0",
+    "jest": "^29.7.0",
     "starknet": "^5.14.1"
   },
   "devDependencies": {
-    "@types/node": "^20.5.7"
+    "@types/node": "^20.5.7",
+    "ts-jest": "^29.1.1"
   },
   "publishConfig": {
     "access": "public"

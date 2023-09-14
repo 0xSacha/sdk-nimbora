@@ -12,8 +12,8 @@ export async function getAllowance(this: NimboraSDK, props: GetAllowanceProps): 
     const { tokenAddress, userAddress, spender } = props
     const tokenContract = this.getTokenContract(tokenAddress)
     try {
-        const allowance = await tokenContract.allowance(userAddress, spender);
-        const allowanceBn = uint256.uint256ToBN(allowance)
+        const { remaining } = await tokenContract.allowance(userAddress, spender);
+        const allowanceBn = uint256.uint256ToBN(remaining)
         return allowanceBn;
     } catch (e) {
         throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
@@ -29,8 +29,8 @@ export async function getBalance(this: NimboraSDK, props: GetBalanceProps): Prom
     const { tokenAddress, userAddress } = props
     const tokenContract = this.getTokenContract(tokenAddress)
     try {
-        const balance = await tokenContract.balanceOf(userAddress);
-        const balanceBn = uint256.uint256ToBN(balance.balance)
+        const { balance } = await tokenContract.balanceOf(userAddress);
+        const balanceBn = uint256.uint256ToBN(balance)
         return balanceBn;
     } catch (e) {
         throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
@@ -46,7 +46,7 @@ export async function getBalance(this: NimboraSDK, props: GetBalanceProps): Prom
 export async function getTotalSupply(this: NimboraSDK, tokenAddress: string): Promise<bigint> {
     const tokenContract = this.getTokenContract(tokenAddress)
     try {
-        const totalSupply = await tokenContract.totalSupply();
+        const { totalSupply } = await tokenContract.totalSupply();
         const totalSupplyBn = uint256.uint256ToBN(totalSupply)
         return totalSupplyBn;
     } catch (e) {
@@ -64,8 +64,7 @@ export async function getGasPrice(this: NimboraSDK): Promise<bigint> {
     const oracleContact = this.getOracleContract()
     try {
         const gasPrice = await oracleContact.get_l1_gas_price();
-        const gasPriceBn = uint256.uint256ToBN(gasPrice)
-        return gasPriceBn;
+        return gasPrice;
     } catch (e) {
         throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
     }

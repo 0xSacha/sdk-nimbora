@@ -22,11 +22,11 @@ export const TROVES_BY_CHAIN_ID: {
   // Add descriptions for each chain ID
   [constants.StarknetChainId.SN_GOERLI]: [{
     id: '1',
-    address: '0x6ea2c0991d8be3795466a9a52f81d3a3438f83ef89ebba1588e463de7be1aae'
+    address: '0x57f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087'
   },
   {
     id: '2',
-    address: '0x6ea2c0991d8be3795466a9a52f81d3a3438f83ef89ebba1588e463de7be1aae'
+    address: '0x04dd6b946dd8fea888c92c514106bd5c45db017c631c28d34d87f091dc8a2f38'
   },
   ],
 

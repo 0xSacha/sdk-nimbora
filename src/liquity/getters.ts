@@ -2,7 +2,7 @@ import { NimboraSDK } from "..";
 import { ERROR_CODE, GetAllowanceLiquityProps, GetAllowanceLiquityRes, GetAllowanceProps, GetUserAmountInBatchLiquityProps, GetUserAmountInBatchLiquityRes, GetUsersInBatchLiquityProps, GetUsersInBatchLiquityRes, GetUserGasInBatchLiquityProps, GetUserDebtLiquityProps, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps } from "../config/types";
 import { ErrorWrapper } from '../utils/errorWrapper';
 import { uint256 } from "starknet";
-import { getEthAddress, getLusdAddress } from "@/config/addresses";
+import { getEthAddress, getLusdAddress } from "../config/addresses";
 import { BigNumber } from 'ethers';
 
 
@@ -20,8 +20,8 @@ export async function getBatchGasUnitLiquity(this: NimboraSDK, troveAddress: str
   const troveContract = this.getTroveContract(troveAddress)
   try {
     const batchGasUnit = await troveContract.get_batch_gas_unit();
-    const batchGasUnitBn = uint256.uint256ToBN(batchGasUnit)
-    return batchGasUnitBn;
+    console.log(batchGasUnit)
+    return batchGasUnit;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }
@@ -42,8 +42,7 @@ export async function getBatchGasUnitPerUserLiquity(this: NimboraSDK, troveAddre
   const troveContract = this.getTroveContract(troveAddress)
   try {
     const batchGasUnit = await troveContract.get_batch_gas_unit_per_user();
-    const batchGasUnitBn = uint256.uint256ToBN(batchGasUnit)
-    return batchGasUnitBn;
+    return batchGasUnit;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }
@@ -62,8 +61,7 @@ export async function getBatchGasFeePerUserLiquity(this: NimboraSDK, troveAddres
   const troveContract = this.getTroveContract(troveAddress)
   try {
     const batchGasFee = await troveContract.get_batch_gas_fee_per_user();
-    const batchGasFeeBn = uint256.uint256ToBN(batchGasFee)
-    return batchGasFeeBn;
+    return batchGasFee;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }
@@ -83,8 +81,7 @@ export async function getGasTankLiquity(this: NimboraSDK, troveAddress: string):
   const troveContract = this.getTroveContract(troveAddress)
   try {
     const gasTank = await troveContract.get_gas_tank();
-    const gasTankBn = uint256.uint256ToBN(gasTank)
-    return gasTankBn;
+    return gasTank;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }
@@ -140,8 +137,7 @@ export async function getBatchCounterLiquity(this: NimboraSDK, troveAddress: str
   const troveContract = this.getTroveContract(troveAddress)
   try {
     const batchCounter = await troveContract.get_batch_counter();
-    const batchCounterBn = uint256.uint256ToBN(batchCounter)
-    return batchCounterBn;
+    return batchCounter;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }
@@ -162,8 +158,7 @@ export async function getLastHandledBatchNonceLiquity(this: NimboraSDK, troveAdd
   const troveContract = this.getTroveContract(troveAddress)
   try {
     const lastHandledBatchNonce = await troveContract.get_last_handled_batch();
-    const lastHandledBatchNonceBn = uint256.uint256ToBN(lastHandledBatchNonce)
-    return lastHandledBatchNonceBn;
+    return lastHandledBatchNonce;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }
@@ -317,8 +312,7 @@ export async function getTotalTroveDebtLiquity(this: NimboraSDK, troveAddress: s
   const troveContract = this.getTroveContract(troveAddress)
   try {
     const l1TotalDebt = await troveContract.get_l1_total_debt();
-    const l1TotalDebtBn = uint256.uint256ToBN(l1TotalDebt)
-    return l1TotalDebtBn;
+    return l1TotalDebt;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }
@@ -376,7 +370,7 @@ export async function getRequiredGasFeeToParticipateCurrrentBatchLiquity(this: N
   } else {
     const getUserGasInBatchLiquityProps: GetUserGasInBatchLiquityProps = {
       troveAddress: troveAddress,
-      batchNonce: currentNounce,
+      batchNonce: parseFloat(currentNounce.toString()),
       userAddress: userAddress
     }
     const gasFeesSpent = await this.getUserGasInBatchLiquity(getUserGasInBatchLiquityProps)

@@ -1,7 +1,7 @@
-import { getEthAddress, getLusdAddress } from "@/config/addresses";
+import { getEthAddress, getLusdAddress } from "../config/addresses";
 import { NimboraSDK } from "..";
-import { ERROR_CODE, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps, BuildCallDataApproveRepayLiquityProps, BuildCallDataApproveBorrowLiquityProps, BuildCallDataApproveRepayLiquityRes, BuildCallDataBorrowLiquityProps, BuildCallDataRepayLiquityProps } from "@/config/types";
-import { ErrorWrapper } from '@/utils/errorWrapper';
+import { ERROR_CODE, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps, BuildCallDataApproveRepayLiquityProps, BuildCallDataApproveBorrowLiquityProps, BuildCallDataApproveRepayLiquityRes, BuildCallDataBorrowLiquityProps, BuildCallDataRepayLiquityProps } from "../config/types";
+import { ErrorWrapper } from '../utils/errorWrapper';
 import { Call, Uint256, uint256 } from "starknet";
 
 
