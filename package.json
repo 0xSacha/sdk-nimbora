@@ -1,6 +1,6 @@
 {
   "name": "nimbora-sdk",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Interact with your favorite L1 protocols, at a fraction of the cost of L2!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
