@@ -156,7 +156,7 @@ function buildCallDataBorrowLiquity(props) {
                         contractAddress: troveAddress,
                         entrypoint: "borrow",
                         calldata: [
-                            ethAmount,
+                            ethAmount.toString(),
                             gasFeeToParticipateCurrrentBatch.toString()
                         ]
                     };
@@ -190,7 +190,7 @@ function buildCallDataRepayLiquity(props) {
                         contractAddress: troveAddress,
                         entrypoint: "repay",
                         calldata: [
-                            lusdAmount,
+                            lusdAmount.toString(),
                             gasFeeToParticipateCurrrentBatch.toString()
                         ]
                     };

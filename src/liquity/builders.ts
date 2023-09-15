@@ -104,7 +104,7 @@ export async function buildCallDataBorrowLiquity(this: NimboraSDK, props: BuildC
         contractAddress: troveAddress,
         entrypoint: "borrow",
         calldata: [
-            ethAmount,
+            ethAmount.toString(),
             gasFeeToParticipateCurrrentBatch.toString()
         ]
     }
@@ -128,7 +128,7 @@ export async function buildCallDataRepayLiquity(this: NimboraSDK, props: BuildCa
         contractAddress: troveAddress,
         entrypoint: "repay",
         calldata: [
-            lusdAmount,
+            lusdAmount.toString(),
             gasFeeToParticipateCurrrentBatch.toString()
         ]
     }
