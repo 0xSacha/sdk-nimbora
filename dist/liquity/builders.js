@@ -40,9 +40,10 @@ exports.buildCallDataRepayLiquity = exports.buildCallDataBorrowLiquity = exports
 var addresses_1 = require("../config/addresses");
 var types_1 = require("../config/types");
 var errorWrapper_1 = require("../utils/errorWrapper");
+var starknet_1 = require("starknet");
 function buildCallDataApproveBorrowLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, userAddress, ethAmount, closeBatch, ethAddress, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasFeeToParticipateCurrrentBatch, tokenApproveCall;
+        var troveAddress, userAddress, ethAmount, closeBatch, ethAddress, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasFeeToParticipateCurrrentBatch, desiredAmountUint256, tokenApproveCall;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -56,18 +57,17 @@ function buildCallDataApproveBorrowLiquity(props) {
                         userAddress: userAddress,
                         closeBatch: closeBatch
                     };
-                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
-                        // const desiredAmountUint256: Uint256 = uint256.bnToUint256(gasFeeToParticipateCurrrentBatch + ethAmount)
-                    ];
+                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)];
                 case 1:
                     gasFeeToParticipateCurrrentBatch = _a.sent();
+                    desiredAmountUint256 = starknet_1.uint256.bnToUint256(gasFeeToParticipateCurrrentBatch + ethAmount);
                     tokenApproveCall = {
                         contractAddress: ethAddress,
                         entrypoint: "approve",
                         calldata: [
-                            userAddress,
                             troveAddress,
-                            (gasFeeToParticipateCurrrentBatch + ethAmount).toString()
+                            desiredAmountUint256.low,
+                            desiredAmountUint256.high
                         ]
                     };
                     return [2 /*return*/, (tokenApproveCall)];
@@ -78,7 +78,7 @@ function buildCallDataApproveBorrowLiquity(props) {
 exports.buildCallDataApproveBorrowLiquity = buildCallDataApproveBorrowLiquity;
 function buildCallDataApproveRepayLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, userAddress, lusdAmount, closeBatch, _a, isEnoughtAllowanceLusd, _b, isEnoughtAllowanceEth, ethAddress, lusdAddress, lusdApproveCall, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasFeeToParticipateCurrrentBatch, ethApproveCall, buildCallDataApproveRepayLiquityRes;
+        var troveAddress, userAddress, lusdAmount, closeBatch, _a, isEnoughtAllowanceLusd, _b, isEnoughtAllowanceEth, ethAddress, lusdAddress, lusdAmountUint256, lusdApproveCall, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasFeeToParticipateCurrrentBatch, gasFeeToParticipateCurrrentBatchUint256, ethApproveCall, buildCallDataApproveRepayLiquityRes;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
@@ -90,14 +90,15 @@ function buildCallDataApproveRepayLiquity(props) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOTHING_TO_APPROVE });
                     ethAddress = (0, addresses_1.getEthAddress)(this.chainId);
                     lusdAddress = (0, addresses_1.getLusdAddress)(this.chainId);
+                    lusdAmountUint256 = starknet_1.uint256.bnToUint256(lusdAmount);
                     if (!isEnoughtAllowanceLusd) {
                         lusdApproveCall = {
                             contractAddress: lusdAddress,
                             entrypoint: "approve",
                             calldata: [
-                                userAddress,
                                 troveAddress,
-                                lusdAmount.toString()
+                                lusdAmountUint256.low,
+                                lusdAmountUint256.high
                             ]
                         };
                     }
@@ -106,19 +107,18 @@ function buildCallDataApproveRepayLiquity(props) {
                         userAddress: userAddress,
                         closeBatch: closeBatch
                     };
-                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
-                        // const gasFeeToParticipateCurrrentBatchUint256: Uint256 = uint256.bnToUint256(gasFeeToParticipateCurrrentBatch)
-                    ];
+                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)];
                 case 1:
                     gasFeeToParticipateCurrrentBatch = _c.sent();
+                    gasFeeToParticipateCurrrentBatchUint256 = starknet_1.uint256.bnToUint256(gasFeeToParticipateCurrrentBatch);
                     if (!isEnoughtAllowanceEth) {
                         ethApproveCall = {
                             contractAddress: ethAddress,
                             entrypoint: "approve",
                             calldata: [
-                                userAddress,
                                 troveAddress,
-                                gasFeeToParticipateCurrrentBatch.toString()
+                                gasFeeToParticipateCurrrentBatchUint256.low,
+                                gasFeeToParticipateCurrrentBatchUint256.high
                             ]
                         };
                     }
@@ -134,7 +134,7 @@ function buildCallDataApproveRepayLiquity(props) {
 exports.buildCallDataApproveRepayLiquity = buildCallDataApproveRepayLiquity;
 function buildCallDataBorrowLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, userAddress, ethAmount, closeBatch, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasFeeToParticipateCurrrentBatch, borrowCall;
+        var troveAddress, userAddress, ethAmount, closeBatch, ethAmountUint256, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasFeeToParticipateCurrrentBatch, gasFeeToParticipateCurrrentBatchUint256, borrowCall;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -142,22 +142,24 @@ function buildCallDataBorrowLiquity(props) {
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
+                    ethAmountUint256 = starknet_1.uint256.bnToUint256(ethAmount);
                     getRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
                         troveAddress: troveAddress,
                         userAddress: userAddress,
                         closeBatch: closeBatch
                     };
-                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
-                        // const gasFeeToParticipateCurrrentBatchUint256: Uint256 = uint256.bnToUint256(gasFeeToParticipateCurrrentBatch)
-                    ];
+                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)];
                 case 1:
                     gasFeeToParticipateCurrrentBatch = _a.sent();
+                    gasFeeToParticipateCurrrentBatchUint256 = starknet_1.uint256.bnToUint256(gasFeeToParticipateCurrrentBatch);
                     borrowCall = {
                         contractAddress: troveAddress,
                         entrypoint: "borrow",
                         calldata: [
-                            ethAmount.toString(),
-                            gasFeeToParticipateCurrrentBatch.toString()
+                            ethAmountUint256.low,
+                            ethAmountUint256.high,
+                            gasFeeToParticipateCurrrentBatchUint256.low,
+                            gasFeeToParticipateCurrrentBatchUint256.high
                         ]
                     };
                     return [2 /*return*/, (borrowCall)];
@@ -168,7 +170,7 @@ function buildCallDataBorrowLiquity(props) {
 exports.buildCallDataBorrowLiquity = buildCallDataBorrowLiquity;
 function buildCallDataRepayLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, userAddress, lusdAmount, closeBatch, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasFeeToParticipateCurrrentBatch, repayCall;
+        var troveAddress, userAddress, lusdAmount, closeBatch, lusdAmountUint256, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasFeeToParticipateCurrrentBatch, gasFeeToParticipateCurrrentBatchUint256, repayCall;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -176,22 +178,24 @@ function buildCallDataRepayLiquity(props) {
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
+                    lusdAmountUint256 = starknet_1.uint256.bnToUint256(lusdAmount);
                     getRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
                         troveAddress: troveAddress,
                         userAddress: userAddress,
                         closeBatch: closeBatch
                     };
-                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
-                        // const gasFeeToParticipateCurrrentBatchUint256: Uint256 = uint256.bnToUint256(gasFeeToParticipateCurrrentBatch)
-                    ];
+                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)];
                 case 1:
                     gasFeeToParticipateCurrrentBatch = _a.sent();
+                    gasFeeToParticipateCurrrentBatchUint256 = starknet_1.uint256.bnToUint256(gasFeeToParticipateCurrrentBatch);
                     repayCall = {
                         contractAddress: troveAddress,
-                        entrypoint: "repay",
+                        entrypoint: "borrow",
                         calldata: [
-                            lusdAmount.toString(),
-                            gasFeeToParticipateCurrrentBatch.toString()
+                            lusdAmountUint256.low,
+                            lusdAmountUint256.high,
+                            gasFeeToParticipateCurrrentBatchUint256.low,
+                            gasFeeToParticipateCurrrentBatchUint256.high
                         ]
                     };
                     return [2 /*return*/, (repayCall)];
