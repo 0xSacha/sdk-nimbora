@@ -1,5 +1,5 @@
-import { Account, Provider } from 'starknet';
-import { NimboraSDK } from './src';
+import { Account, Provider, constants } from 'starknet';
+import { NimboraSDK } from '.';
 
 describe('NimboraSDK Integration Tests', () => {
     let sdk: NimboraSDK;
@@ -14,7 +14,7 @@ describe('NimboraSDK Integration Tests', () => {
                 nodeUrl: "https://starknet-goerli.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
             }
         });
-        sdk = new NimboraSDK(provider_testnet);
+        sdk = new NimboraSDK(provider_testnet, constants.StarknetChainId.SN_GOERLI);
     });
 
     it('balance defined', async () => {

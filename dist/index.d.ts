@@ -3,8 +3,7 @@ export declare class NimboraSDK {
     provider: Account | Provider;
     signer: SignerInterface | undefined;
     chainId: constants.StarknetChainId;
-    constructor(provider: Account | Provider | undefined);
-    checkChainId(provider: Account | Provider): Promise<void>;
+    constructor(provider: Account | Provider | undefined, chainId: constants.StarknetChainId);
     getBalance: (props: import("./config/types").GetBalanceProps) => Promise<bigint>;
     getAllowance: (props: import("./config/types").GetAllowanceProps) => Promise<bigint>;
     getTotalSupply: (tokenAddress: string) => Promise<bigint>;

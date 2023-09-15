@@ -8,9 +8,9 @@ import { getBalance, getAllowance, getTotalSupply, getGasPrice } from './utils/w
 export class NimboraSDK {
   public provider: Account | Provider;
   public signer: SignerInterface | undefined;
-  public chainId!: constants.StarknetChainId;
+  public chainId: constants.StarknetChainId;
 
-  constructor(provider: Account | Provider | undefined) {
+  constructor(provider: Account | Provider | undefined, chainId: constants.StarknetChainId) {
     if (!provider) {
       throw new ErrorWrapper({ code: ERROR_CODE.PROVIDER_REQUIRED });
     }
@@ -21,11 +21,6 @@ export class NimboraSDK {
     } catch (e) {
       this.signer = undefined;
     }
-    this.checkChainId(provider);
-  }
-
-  async checkChainId(provider: Account | Provider) {
-    const chainId = await provider.getChainId();
 
     if (chainId !== constants.StarknetChainId.SN_GOERLI) {
       throw new ErrorWrapper({ code: ERROR_CODE.UNSUPPORTED_CHAIN_ID });

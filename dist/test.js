@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var starknet_1 = require("starknet");
-var src_1 = require("./src");
+var _1 = require(".");
 describe('NimboraSDK Integration Tests', function () {
     var sdk;
     var token = "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
@@ -50,7 +50,7 @@ describe('NimboraSDK Integration Tests', function () {
                 nodeUrl: "https://starknet-goerli.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
             }
         });
-        sdk = new src_1.NimboraSDK(provider_testnet);
+        sdk = new _1.NimboraSDK(provider_testnet, starknet_1.constants.StarknetChainId.SN_GOERLI);
     });
     it('balance defined', function () { return __awaiter(void 0, void 0, void 0, function () {
         var balance;
@@ -310,6 +310,15 @@ describe('NimboraSDK Integration Tests', function () {
                     expect(requiredGasFeeToParticipateCurrrentBatchLiquity).toBeDefined();
                     return [2 /*return*/];
             }
+        });
+    }); });
+    it('getEthContract defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var ethContract;
+        return __generator(this, function (_a) {
+            ethContract = sdk.getEthContract();
+            console.log(ethContract.address);
+            expect(ethContract.address).toBeDefined();
+            return [2 /*return*/];
         });
     }); });
     // Add more integration tests for other functions in a similar manner
