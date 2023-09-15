@@ -67,7 +67,7 @@ function buildCallDataApproveBorrowLiquity(props) {
                         calldata: [
                             userAddress,
                             troveAddress,
-                            gasFeeToParticipateCurrrentBatch + ethAmount
+                            (gasFeeToParticipateCurrrentBatch + ethAmount).toString()
                         ]
                     };
                     return [2 /*return*/, (tokenApproveCall)];
@@ -97,7 +97,7 @@ function buildCallDataApproveRepayLiquity(props) {
                             calldata: [
                                 userAddress,
                                 troveAddress,
-                                lusdAmount
+                                lusdAmount.toString()
                             ]
                         };
                     }
@@ -118,7 +118,7 @@ function buildCallDataApproveRepayLiquity(props) {
                             calldata: [
                                 userAddress,
                                 troveAddress,
-                                gasFeeToParticipateCurrrentBatch
+                                gasFeeToParticipateCurrrentBatch.toString()
                             ]
                         };
                     }
@@ -157,7 +157,7 @@ function buildCallDataBorrowLiquity(props) {
                         entrypoint: "borrow",
                         calldata: [
                             ethAmount,
-                            gasFeeToParticipateCurrrentBatch
+                            gasFeeToParticipateCurrrentBatch.toString()
                         ]
                     };
                     return [2 /*return*/, (borrowCall)];
@@ -191,7 +191,7 @@ function buildCallDataRepayLiquity(props) {
                         entrypoint: "borrow",
                         calldata: [
                             lusdAmount,
-                            gasFeeToParticipateCurrrentBatch
+                            gasFeeToParticipateCurrrentBatch.toString()
                         ]
                     };
                     return [2 /*return*/, (repayCall)];

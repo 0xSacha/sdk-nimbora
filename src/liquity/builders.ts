@@ -25,7 +25,7 @@ export async function buildCallDataApproveBorrowLiquity(this: NimboraSDK, props:
         calldata: [
             userAddress,
             troveAddress,
-            gasFeeToParticipateCurrrentBatch + ethAmount
+            (gasFeeToParticipateCurrrentBatch + ethAmount).toString()
         ]
     }
     return (tokenApproveCall)
@@ -51,7 +51,7 @@ export async function buildCallDataApproveRepayLiquity(this: NimboraSDK, props: 
             calldata: [
                 userAddress,
                 troveAddress,
-                lusdAmount
+                lusdAmount.toString()
             ]
         }
     }
@@ -72,7 +72,7 @@ export async function buildCallDataApproveRepayLiquity(this: NimboraSDK, props: 
             calldata: [
                 userAddress,
                 troveAddress,
-                gasFeeToParticipateCurrrentBatch
+                gasFeeToParticipateCurrrentBatch.toString()
             ]
         }
     }
@@ -105,7 +105,7 @@ export async function buildCallDataBorrowLiquity(this: NimboraSDK, props: BuildC
         entrypoint: "borrow",
         calldata: [
             ethAmount,
-            gasFeeToParticipateCurrrentBatch
+            gasFeeToParticipateCurrrentBatch.toString()
         ]
     }
     return (borrowCall)
@@ -129,7 +129,7 @@ export async function buildCallDataRepayLiquity(this: NimboraSDK, props: BuildCa
         entrypoint: "borrow",
         calldata: [
             lusdAmount,
-            gasFeeToParticipateCurrrentBatch
+            gasFeeToParticipateCurrrentBatch.toString()
         ]
     }
     return (repayCall)
