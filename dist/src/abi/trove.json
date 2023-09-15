@@ -1,172 +1,498 @@
 [
     {
-        "name": "get_batch_counter",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
+        "type": "impl",
+        "name": "TroveImpl",
+        "interface_name": "liquity::interfaces::itrove::ITrove"
     },
     {
-        "name": "get_batch_timestamp",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-            {
-                "type": "core::integer::u64"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "get_gas_tank",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "get_user_amount_for_nonce",
-        "type": "function",
-        "inputs": [
-            {
-                "name": "nonce",
-                "type": "core::integer::u256"
-            },
-            {
-                "name": "user",
-                "type": "core::starknet::contract_address::ContractAddress"
-            }
-        ],
-        "outputs": [
-            {
-                "type": "(core::integer::u256, core::integer::u256)"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "get_user_gas_for_nonce",
-        "type": "function",
-        "inputs": [
-            {
-                "name": "nonce",
-                "type": "core::integer::u256"
-            },
-            {
-                "name": "user",
-                "type": "core::starknet::contract_address::ContractAddress"
-            }
-        ],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "get_users_for_nonce",
-        "type": "function",
-        "inputs": [
-            {
-                "name": "nonce",
-                "type": "core::integer::u256"
-            }
-        ],
-        "outputs": [
-            {
-                "type": "(core::array::Array::<core::starknet::contract_address::ContractAddress>, core::array::Array::<core::starknet::contract_address::ContractAddress>)"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "get_user_debt",
-        "type": "function",
-        "inputs": [
-            {
-                "name": "user",
-                "type": "core::starknet::contract_address::ContractAddress"
-            }
-        ],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "get_user_pending_debt",
-        "type": "function",
-        "inputs": [
-            {
-                "name": "user",
-                "type": "core::starknet::contract_address::ContractAddress"
-            }
-        ],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "get_last_handled_batch",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "calculate_batch_gas_fee",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "get_l1_total_supply",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "get_l1_total_debt",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "liquity::interfaces::iliquity_manager::ILiquityManagerDispatcher",
         "type": "struct",
+        "name": "core::integer::u256",
+        "members": [
+            {
+                "name": "low",
+                "type": "core::integer::u128"
+            },
+            {
+                "name": "high",
+                "type": "core::integer::u128"
+            }
+        ]
+    },
+    {
+        "type": "struct",
+        "name": "core::starknet::eth_address::EthAddress",
+        "members": [
+            {
+                "name": "address",
+                "type": "core::felt252"
+            }
+        ]
+    },
+    {
+        "type": "interface",
+        "name": "liquity::interfaces::itrove::ITrove",
+        "items": [
+            {
+                "type": "function",
+                "name": "get_batch_counter",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_batch_timestamp",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u64"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_gas_tank",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_user_amount_for_nonce",
+                "inputs": [
+                    {
+                        "name": "nonce",
+                        "type": "core::integer::u256"
+                    },
+                    {
+                        "name": "user",
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "type": "(core::integer::u256, core::integer::u256)"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_user_gas_for_nonce",
+                "inputs": [
+                    {
+                        "name": "nonce",
+                        "type": "core::integer::u256"
+                    },
+                    {
+                        "name": "user",
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_users_for_nonce",
+                "inputs": [
+                    {
+                        "name": "nonce",
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "type": "(core::array::Array::<core::starknet::contract_address::ContractAddress>, core::array::Array::<core::starknet::contract_address::ContractAddress>)"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_user_debt",
+                "inputs": [
+                    {
+                        "name": "user",
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_user_pending_debt",
+                "inputs": [
+                    {
+                        "name": "user",
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_last_handled_batch",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "calculate_batch_gas_fee",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_l1_total_supply",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_l1_total_debt",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_fees_collector",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "set_relayer",
+                "inputs": [
+                    {
+                        "name": "relayer",
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "set_batch_gas_unit_per_user",
+                "inputs": [
+                    {
+                        "name": "gas_unit_per_user",
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "set_fees_collector",
+                "inputs": [
+                    {
+                        "name": "fees_collector",
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "set_l1_gas_price_oracle_address",
+                "inputs": [
+                    {
+                        "name": "l1_gas_price_oracle_address",
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "set_batch_gas_unit",
+                "inputs": [
+                    {
+                        "name": "gas_unit",
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "set_l1_liquity_address",
+                "inputs": [
+                    {
+                        "name": "new_l1_liquity",
+                        "type": "core::starknet::eth_address::EthAddress"
+                    }
+                ],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "get_l1_liquity_address",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::starknet::eth_address::EthAddress"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_relayer",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_batch_gas_unit_per_user",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_l1_gas_price_oracle_address",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_l1_gas_price",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_l1_last_update",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u64"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_batch_gas_unit",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_batch_gas_fee_per_user",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_total_gas_batch",
+                "inputs": [
+                    {
+                        "name": "nonce",
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "get_owner",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "type": "core::starknet::contract_address::ContractAddress"
+                    }
+                ],
+                "state_mutability": "view"
+            },
+            {
+                "type": "function",
+                "name": "borrow",
+                "inputs": [
+                    {
+                        "name": "eth_amount",
+                        "type": "core::integer::u256"
+                    },
+                    {
+                        "name": "paid_gas",
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "repay",
+                "inputs": [
+                    {
+                        "name": "usd_amount",
+                        "type": "core::integer::u256"
+                    },
+                    {
+                        "name": "paid_gas",
+                        "type": "core::integer::u256"
+                    }
+                ],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "batch",
+                "inputs": [],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "pause",
+                "inputs": [],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "unpause",
+                "inputs": [],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "pause_borrow",
+                "inputs": [],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "unpause_borrow",
+                "inputs": [],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "pause_repay",
+                "inputs": [],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "unpause_repay",
+                "inputs": [],
+                "outputs": [],
+                "state_mutability": "external"
+            },
+            {
+                "type": "function",
+                "name": "update_class_hash",
+                "inputs": [
+                    {
+                        "name": "class_hash",
+                        "type": "core::felt252"
+                    }
+                ],
+                "outputs": [],
+                "state_mutability": "external"
+            }
+        ]
+    },
+    {
+        "type": "struct",
+        "name": "liquity::interfaces::iliquity_manager::ILiquityManagerDispatcher",
         "members": [
             {
                 "name": "contract_address",
@@ -175,86 +501,22 @@
         ]
     },
     {
+        "type": "constructor",
         "name": "constructor",
-        "type": "function",
         "inputs": [
+            {
+                "name": "owner",
+                "type": "core::starknet::contract_address::ContractAddress"
+            },
             {
                 "name": "liquity_manager",
                 "type": "liquity::interfaces::iliquity_manager::ILiquityManagerDispatcher"
             }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
+        ]
     },
     {
-        "name": "get_total_gas_batch",
-        "type": "function",
-        "inputs": [
-            {
-                "name": "nonce",
-                "type": "core::integer::u256"
-            }
-        ],
-        "outputs": [
-            {
-                "type": "core::integer::u256"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "borrow",
-        "type": "function",
-        "inputs": [
-            {
-                "name": "eth_amount",
-                "type": "core::integer::u256"
-            },
-            {
-                "name": "paid_gas",
-                "type": "core::integer::u256"
-            }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
-    },
-    {
-        "name": "repay",
-        "type": "function",
-        "inputs": [
-            {
-                "name": "usd_amount",
-                "type": "core::integer::u256"
-            },
-            {
-                "name": "paid_gas",
-                "type": "core::integer::u256"
-            }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
-    },
-    {
-        "name": "get_owner",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-            {
-                "type": "core::starknet::contract_address::ContractAddress"
-            }
-        ],
-        "state_mutability": "view"
-    },
-    {
-        "name": "batch",
-        "type": "function",
-        "inputs": [],
-        "outputs": [],
-        "state_mutability": "external"
-    },
-    {
+        "type": "l1_handler",
         "name": "handle_response",
-        "type": "function",
         "inputs": [
             {
                 "name": "from_address",
@@ -289,120 +551,138 @@
         "state_mutability": "external"
     },
     {
-        "name": "pause_borrow",
-        "type": "function",
-        "inputs": [],
-        "outputs": [],
-        "state_mutability": "external"
-    },
-    {
-        "name": "unpause_borrow",
-        "type": "function",
-        "inputs": [],
-        "outputs": [],
-        "state_mutability": "external"
-    },
-    {
-        "name": "pause_repay",
-        "type": "function",
-        "inputs": [],
-        "outputs": [],
-        "state_mutability": "external"
-    },
-    {
-        "name": "unpause_repay",
-        "type": "function",
-        "inputs": [],
-        "outputs": [],
-        "state_mutability": "external"
-    },
-    {
-        "name": "pause",
-        "type": "function",
-        "inputs": [],
-        "outputs": [],
-        "state_mutability": "external"
-    },
-    {
-        "name": "unpause",
-        "type": "function",
-        "inputs": [],
-        "outputs": [],
-        "state_mutability": "external"
-    },
-    {
-        "name": "update_class_hash",
-        "type": "function",
-        "inputs": [
+        "type": "enum",
+        "name": "liquity::action::Action",
+        "variants": [
             {
-                "name": "class_hash",
-                "type": "core::felt252"
+                "name": "Borrow",
+                "type": "()"
+            },
+            {
+                "name": "Repay",
+                "type": "()"
             }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
+        ]
     },
     {
-        "name": "ActionProcessed",
         "type": "event",
-        "inputs": [
+        "name": "liquity::trove::Trove::ActionProcessed",
+        "kind": "struct",
+        "members": [
             {
                 "name": "nonce",
-                "type": "core::integer::u256"
+                "type": "core::integer::u256",
+                "kind": "data"
             },
             {
                 "name": "action",
-                "type": "liquity::action::Action"
+                "type": "liquity::action::Action",
+                "kind": "data"
             },
             {
                 "name": "user",
-                "type": "core::starknet::contract_address::ContractAddress"
+                "type": "core::starknet::contract_address::ContractAddress",
+                "kind": "data"
             },
             {
                 "name": "amount",
-                "type": "core::integer::u256"
+                "type": "core::integer::u256",
+                "kind": "data"
             }
         ]
     },
     {
-        "name": "BatchRequest",
         "type": "event",
-        "inputs": [
+        "name": "liquity::trove::Trove::BatchRequest",
+        "kind": "struct",
+        "members": [
             {
                 "name": "nonce",
-                "type": "core::integer::u256"
+                "type": "core::integer::u256",
+                "kind": "data"
             },
             {
                 "name": "total_borrowed_amount",
-                "type": "core::integer::u256"
+                "type": "core::integer::u256",
+                "kind": "data"
             },
             {
                 "name": "total_repaid_amount",
-                "type": "core::integer::u256"
+                "type": "core::integer::u256",
+                "kind": "data"
             }
         ]
     },
     {
-        "name": "BatchResponse",
         "type": "event",
-        "inputs": [
+        "name": "liquity::trove::Trove::BatchResponse",
+        "kind": "struct",
+        "members": [
             {
                 "name": "nonce",
-                "type": "core::integer::u256"
+                "type": "core::integer::u256",
+                "kind": "data"
             },
             {
                 "name": "usd_amount",
-                "type": "core::integer::u256"
+                "type": "core::integer::u256",
+                "kind": "data"
             },
             {
                 "name": "eth_amount",
-                "type": "core::integer::u256"
+                "type": "core::integer::u256",
+                "kind": "data"
             }
         ]
     },
     {
-        "name": "TroveClosed",
         "type": "event",
-        "inputs": []
+        "name": "liquity::trove::Trove::TroveClosed",
+        "kind": "struct",
+        "members": []
+    },
+    {
+        "type": "event",
+        "name": "liquity::trove::Trove::RelayerSet",
+        "kind": "struct",
+        "members": [
+            {
+                "name": "address",
+                "type": "core::starknet::contract_address::ContractAddress",
+                "kind": "data"
+            }
+        ]
+    },
+    {
+        "type": "event",
+        "name": "liquity::trove::Trove::Event",
+        "kind": "enum",
+        "variants": [
+            {
+                "name": "ActionProcessed",
+                "type": "liquity::trove::Trove::ActionProcessed",
+                "kind": "nested"
+            },
+            {
+                "name": "BatchRequest",
+                "type": "liquity::trove::Trove::BatchRequest",
+                "kind": "nested"
+            },
+            {
+                "name": "BatchResponse",
+                "type": "liquity::trove::Trove::BatchResponse",
+                "kind": "nested"
+            },
+            {
+                "name": "TroveClosed",
+                "type": "liquity::trove::Trove::TroveClosed",
+                "kind": "nested"
+            },
+            {
+                "name": "RelayerSet",
+                "type": "liquity::trove::Trove::RelayerSet",
+                "kind": "nested"
+            }
+        ]
     }
 ]

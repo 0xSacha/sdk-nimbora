@@ -47,7 +47,7 @@ var starknet_1 = require("starknet");
  */
 function getAllowance(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var tokenAddress, userAddress, spender, tokenContract, allowance, allowanceBn, e_1;
+        var tokenAddress, userAddress, spender, tokenContract, remaining, allowanceBn, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -58,8 +58,8 @@ function getAllowance(props) {
                     _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, tokenContract.allowance(userAddress, spender)];
                 case 2:
-                    allowance = _a.sent();
-                    allowanceBn = starknet_1.uint256.uint256ToBN(allowance);
+                    remaining = (_a.sent()).remaining;
+                    allowanceBn = starknet_1.uint256.uint256ToBN(remaining);
                     return [2 /*return*/, allowanceBn];
                 case 3:
                     e_1 = _a.sent();
@@ -88,8 +88,8 @@ function getBalance(props) {
                     _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, tokenContract.balanceOf(userAddress)];
                 case 2:
-                    balance = _a.sent();
-                    balanceBn = starknet_1.uint256.uint256ToBN(balance.balance);
+                    balance = (_a.sent()).balance;
+                    balanceBn = starknet_1.uint256.uint256ToBN(balance);
                     return [2 /*return*/, balanceBn];
                 case 3:
                     e_2 = _a.sent();
@@ -118,7 +118,7 @@ function getTotalSupply(tokenAddress) {
                     _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, tokenContract.totalSupply()];
                 case 2:
-                    totalSupply = _a.sent();
+                    totalSupply = (_a.sent()).totalSupply;
                     totalSupplyBn = starknet_1.uint256.uint256ToBN(totalSupply);
                     return [2 /*return*/, totalSupplyBn];
                 case 3:
@@ -137,7 +137,7 @@ exports.getTotalSupply = getTotalSupply;
  */
 function getGasPrice() {
     return __awaiter(this, void 0, void 0, function () {
-        var oracleContact, gasPrice, gasPriceBn, e_4;
+        var oracleContact, gasPrice, e_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -148,8 +148,7 @@ function getGasPrice() {
                     return [4 /*yield*/, oracleContact.get_l1_gas_price()];
                 case 2:
                     gasPrice = _a.sent();
-                    gasPriceBn = starknet_1.uint256.uint256ToBN(gasPrice);
-                    return [2 /*return*/, gasPriceBn];
+                    return [2 /*return*/, gasPrice];
                 case 3:
                     e_4 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_4 });

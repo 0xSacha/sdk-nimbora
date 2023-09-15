@@ -50,7 +50,7 @@ var ethers_1 = require("ethers");
  */
 function getBatchGasUnitLiquity(troveAddress) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveContract, batchGasUnit, batchGasUnitBn, e_1;
+        var troveContract, batchGasUnit, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -64,8 +64,7 @@ function getBatchGasUnitLiquity(troveAddress) {
                     return [4 /*yield*/, troveContract.get_batch_gas_unit()];
                 case 2:
                     batchGasUnit = _a.sent();
-                    batchGasUnitBn = starknet_1.uint256.uint256ToBN(batchGasUnit);
-                    return [2 /*return*/, batchGasUnitBn];
+                    return [2 /*return*/, batchGasUnit];
                 case 3:
                     e_1 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_1 });
@@ -83,7 +82,7 @@ exports.getBatchGasUnitLiquity = getBatchGasUnitLiquity;
  */
 function getBatchGasUnitPerUserLiquity(troveAddress) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveContract, batchGasUnit, batchGasUnitBn, e_2;
+        var troveContract, batchGasUnit, e_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -97,8 +96,7 @@ function getBatchGasUnitPerUserLiquity(troveAddress) {
                     return [4 /*yield*/, troveContract.get_batch_gas_unit_per_user()];
                 case 2:
                     batchGasUnit = _a.sent();
-                    batchGasUnitBn = starknet_1.uint256.uint256ToBN(batchGasUnit);
-                    return [2 /*return*/, batchGasUnitBn];
+                    return [2 /*return*/, batchGasUnit];
                 case 3:
                     e_2 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_2 });
@@ -116,7 +114,7 @@ exports.getBatchGasUnitPerUserLiquity = getBatchGasUnitPerUserLiquity;
  */
 function getBatchGasFeePerUserLiquity(troveAddress) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveContract, batchGasFee, batchGasFeeBn, e_3;
+        var troveContract, batchGasFee, e_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -130,8 +128,7 @@ function getBatchGasFeePerUserLiquity(troveAddress) {
                     return [4 /*yield*/, troveContract.get_batch_gas_fee_per_user()];
                 case 2:
                     batchGasFee = _a.sent();
-                    batchGasFeeBn = starknet_1.uint256.uint256ToBN(batchGasFee);
-                    return [2 /*return*/, batchGasFeeBn];
+                    return [2 /*return*/, batchGasFee];
                 case 3:
                     e_3 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_3 });
@@ -149,7 +146,7 @@ exports.getBatchGasFeePerUserLiquity = getBatchGasFeePerUserLiquity;
  */
 function getGasTankLiquity(troveAddress) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveContract, gasTank, gasTankBn, e_4;
+        var troveContract, gasTank, e_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -163,8 +160,7 @@ function getGasTankLiquity(troveAddress) {
                     return [4 /*yield*/, troveContract.get_gas_tank()];
                 case 2:
                     gasTank = _a.sent();
-                    gasTankBn = starknet_1.uint256.uint256ToBN(gasTank);
-                    return [2 /*return*/, gasTankBn];
+                    return [2 /*return*/, gasTank];
                 case 3:
                     e_4 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_4 });
@@ -231,7 +227,7 @@ exports.getAllowanceLiquity = getAllowanceLiquity;
  */
 function getBatchCounterLiquity(troveAddress) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveContract, batchCounter, batchCounterBn, e_6;
+        var troveContract, batchCounter, e_6;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -245,8 +241,7 @@ function getBatchCounterLiquity(troveAddress) {
                     return [4 /*yield*/, troveContract.get_batch_counter()];
                 case 2:
                     batchCounter = _a.sent();
-                    batchCounterBn = starknet_1.uint256.uint256ToBN(batchCounter);
-                    return [2 /*return*/, batchCounterBn];
+                    return [2 /*return*/, batchCounter];
                 case 3:
                     e_6 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_6 });
@@ -264,7 +259,7 @@ exports.getBatchCounterLiquity = getBatchCounterLiquity;
  */
 function getLastHandledBatchNonceLiquity(troveAddress) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveContract, lastHandledBatchNonce, lastHandledBatchNonceBn, e_7;
+        var troveContract, lastHandledBatchNonce, e_7;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -278,8 +273,7 @@ function getLastHandledBatchNonceLiquity(troveAddress) {
                     return [4 /*yield*/, troveContract.get_last_handled_batch()];
                 case 2:
                     lastHandledBatchNonce = _a.sent();
-                    lastHandledBatchNonceBn = starknet_1.uint256.uint256ToBN(lastHandledBatchNonce);
-                    return [2 /*return*/, lastHandledBatchNonceBn];
+                    return [2 /*return*/, lastHandledBatchNonce];
                 case 3:
                     e_7 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_7 });
@@ -353,8 +347,8 @@ function getUserAmountInBatchLiquity(props) {
                     return [4 /*yield*/, troveContract.get_user_amount_for_nonce(batchNonceUint256, userAddress)];
                 case 2:
                     userAmountForNounce = _a.sent();
-                    userBorrowAmount = starknet_1.uint256.uint256ToBN(userAmountForNounce[0]);
-                    userRepayAmount = starknet_1.uint256.uint256ToBN(userAmountForNounce[1]);
+                    userBorrowAmount = userAmountForNounce[0];
+                    userRepayAmount = userAmountForNounce[1];
                     getUserAmountInBatchLiquityRes = {
                         borrowAmount: userBorrowAmount,
                         repayAmount: userRepayAmount
@@ -377,7 +371,7 @@ exports.getUserAmountInBatchLiquity = getUserAmountInBatchLiquity;
  */
 function getUserGasInBatchLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, batchNonce, userAddress, troveContract, batchNonceUint256, gasForNounce, gasForNounceBn, e_10;
+        var troveAddress, batchNonce, userAddress, troveContract, batchNonceUint256, gasForNounce, e_10;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -393,8 +387,7 @@ function getUserGasInBatchLiquity(props) {
                     return [4 /*yield*/, troveContract.get_user_gas_for_nonce(batchNonceUint256, userAddress)];
                 case 2:
                     gasForNounce = _a.sent();
-                    gasForNounceBn = starknet_1.uint256.uint256ToBN(gasForNounce);
-                    return [2 /*return*/, gasForNounceBn];
+                    return [2 /*return*/, gasForNounce];
                 case 3:
                     e_10 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_10 });
@@ -494,7 +487,7 @@ exports.getRemainingGasFeeToCloseBatch = getRemainingGasFeeToCloseBatch;
  */
 function getTotalTroveDebtLiquity(troveAddress) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveContract, l1TotalDebt, l1TotalDebtBn, e_11;
+        var troveContract, l1TotalDebt, e_11;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -508,8 +501,7 @@ function getTotalTroveDebtLiquity(troveAddress) {
                     return [4 /*yield*/, troveContract.get_l1_total_debt()];
                 case 2:
                     l1TotalDebt = _a.sent();
-                    l1TotalDebtBn = starknet_1.uint256.uint256ToBN(l1TotalDebt);
-                    return [2 /*return*/, l1TotalDebtBn];
+                    return [2 /*return*/, l1TotalDebt];
                 case 3:
                     e_11 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_11 });
@@ -527,7 +519,7 @@ exports.getTotalTroveDebtLiquity = getTotalTroveDebtLiquity;
  */
 function getUserDebtLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, userAddress, troveContract, userDebt, userDebtBn, e_12;
+        var troveAddress, userAddress, troveContract, userDebt, e_12;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -542,8 +534,7 @@ function getUserDebtLiquity(props) {
                     return [4 /*yield*/, troveContract.get_user_debt(userAddress)];
                 case 2:
                     userDebt = _a.sent();
-                    userDebtBn = starknet_1.uint256.uint256ToBN(userDebt);
-                    return [2 /*return*/, userDebtBn];
+                    return [2 /*return*/, userDebt];
                 case 3:
                     e_12 = _a.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_12 });
@@ -594,7 +585,7 @@ function getRequiredGasFeeToParticipateCurrrentBatchLiquity(props) {
                 case 3:
                     getUserGasInBatchLiquityProps = {
                         troveAddress: troveAddress,
-                        batchNonce: currentNounce,
+                        batchNonce: parseFloat(currentNounce.toString()),
                         userAddress: userAddress
                     };
                     return [4 /*yield*/, this.getUserGasInBatchLiquity(getUserGasInBatchLiquityProps)];

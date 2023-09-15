@@ -20,7 +20,6 @@ export async function getBatchGasUnitLiquity(this: NimboraSDK, troveAddress: str
   const troveContract = this.getTroveContract(troveAddress)
   try {
     const batchGasUnit = await troveContract.get_batch_gas_unit();
-    console.log(batchGasUnit)
     return batchGasUnit;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
@@ -213,8 +212,8 @@ export async function getUserAmountInBatchLiquity(this: NimboraSDK, props: GetUs
   const batchNonceUint256 = uint256.bnToUint256(batchNonce);
   try {
     const userAmountForNounce = await troveContract.get_user_amount_for_nonce(batchNonceUint256, userAddress);
-    const userBorrowAmount = uint256.uint256ToBN(userAmountForNounce[0])
-    const userRepayAmount = uint256.uint256ToBN(userAmountForNounce[1])
+    const userBorrowAmount = userAmountForNounce[0]
+    const userRepayAmount = userAmountForNounce[1]
     const getUserAmountInBatchLiquityRes: GetUserAmountInBatchLiquityRes = {
       borrowAmount: userBorrowAmount,
       repayAmount: userRepayAmount
@@ -241,8 +240,7 @@ export async function getUserGasInBatchLiquity(this: NimboraSDK, props: GetUserG
   const batchNonceUint256 = uint256.bnToUint256(batchNonce);
   try {
     const gasForNounce = await troveContract.get_user_gas_for_nonce(batchNonceUint256, userAddress);
-    const gasForNounceBn = uint256.uint256ToBN(gasForNounce)
-    return gasForNounceBn;
+    return gasForNounce;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }
@@ -333,8 +331,7 @@ export async function getUserDebtLiquity(this: NimboraSDK, props: GetUserDebtLiq
   const troveContract = this.getTroveContract(troveAddress)
   try {
     const userDebt = await troveContract.get_user_debt(userAddress);
-    const userDebtBn = uint256.uint256ToBN(userDebt)
-    return userDebtBn;
+    return userDebt;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }

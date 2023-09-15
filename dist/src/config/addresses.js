@@ -19,7 +19,7 @@ exports.TROVES_BY_CHAIN_ID = (_b = {},
     // Add descriptions for each chain ID
     _b[starknet_1.constants.StarknetChainId.SN_GOERLI] = [{
             id: '1',
-            address: '0x57f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087'
+            address: '0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087'
         },
         {
             id: '2',
@@ -68,7 +68,7 @@ exports.ORACLE_BY_CHAIN_ID = (_d = {},
  */
 exports.ETH_BY_CHAIN_ID = (_e = {},
     // Add descriptions for each chain ID
-    _e[starknet_1.constants.StarknetChainId.SN_GOERLI] = '0x9ee91F9f426fA633d227f7a9b000E28b9dfd8599',
+    _e[starknet_1.constants.StarknetChainId.SN_GOERLI] = '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     _e[starknet_1.constants.StarknetChainId.SN_MAIN] = '',
     _e[starknet_1.constants.StarknetChainId.SN_GOERLI2] = '',
     _e);

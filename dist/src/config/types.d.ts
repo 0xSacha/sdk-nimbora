@@ -47,7 +47,7 @@ export type GetUserAmountInBatchLiquityRes = {
 };
 export type GetUserGasInBatchLiquityProps = {
     troveAddress: string;
-    batchNonce: bigint;
+    batchNonce: number;
     userAddress: string;
 };
 export type GetUserDebtLiquityProps = {

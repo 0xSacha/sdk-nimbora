@@ -43,6 +43,7 @@ describe('NimboraSDK Integration Tests', function () {
     var token = "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
     var ad1 = "0x0259CDc9a9a43ac8Ce627A8341c3687Cc1E6E97b9E6A1A4b80dBC3d6E9ce734b";
     var ad2 = "0x02fa12e47978C846C5731A3cAa0Cc6e87cA4059993b0d92Fad6C8c47EA77894F";
+    var trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087";
     beforeAll(function () {
         var provider_testnet = new starknet_1.Provider({
             rpc: {
@@ -59,6 +60,254 @@ describe('NimboraSDK Integration Tests', function () {
                 case 1:
                     balance = _a.sent();
                     expect(balance).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('total Supply defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var totalSupply;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getTotalSupply(token)];
+                case 1:
+                    totalSupply = _a.sent();
+                    expect(totalSupply).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('allowance defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var allowance;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getAllowance({ tokenAddress: token, userAddress: ad1, spender: ad2 })];
+                case 1:
+                    allowance = _a.sent();
+                    expect(allowance).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('allowance defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var gasPrice;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getGasPrice()];
+                case 1:
+                    gasPrice = _a.sent();
+                    expect(gasPrice).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('lusd supply defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var lusdSupply;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getLUSDTotalSupply()];
+                case 1:
+                    lusdSupply = _a.sent();
+                    expect(lusdSupply).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('totalTroveDebtLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var totalTroveDebtLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getTotalTroveDebtLiquity(trove)];
+                case 1:
+                    totalTroveDebtLiquity = _a.sent();
+                    expect(totalTroveDebtLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getBatchGasUnitLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var batchGasUnitLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getBatchGasUnitLiquity(trove)];
+                case 1:
+                    batchGasUnitLiquity = _a.sent();
+                    expect(batchGasUnitLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getBatchGasUnitPerUserLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var batchGasUnitPerUserLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getBatchGasUnitPerUserLiquity(trove)];
+                case 1:
+                    batchGasUnitPerUserLiquity = _a.sent();
+                    expect(batchGasUnitPerUserLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getBatchGasFeePerUserLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var batchGasFeePerUserLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getBatchGasFeePerUserLiquity(trove)];
+                case 1:
+                    batchGasFeePerUserLiquity = _a.sent();
+                    expect(batchGasFeePerUserLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('chain id  defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var chainId;
+        return __generator(this, function (_a) {
+            chainId = sdk.chainId;
+            expect(chainId).toBeDefined();
+            return [2 /*return*/];
+        });
+    }); });
+    it('getGasTankLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var gasTankLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getGasTankLiquity(trove)];
+                case 1:
+                    gasTankLiquity = _a.sent();
+                    expect(gasTankLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getAllowanceLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var allowanceLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getAllowanceLiquity({ troveAddress: trove, userAddress: ad1 })];
+                case 1:
+                    allowanceLiquity = _a.sent();
+                    expect(allowanceLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getBatchCounterLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var batchCounterLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getBatchCounterLiquity(trove)];
+                case 1:
+                    batchCounterLiquity = _a.sent();
+                    expect(batchCounterLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getLastHandledBatchNonceLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var lastHandledBatchNonceLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getLastHandledBatchNonceLiquity(trove)];
+                case 1:
+                    lastHandledBatchNonceLiquity = _a.sent();
+                    expect(lastHandledBatchNonceLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getUsersInBatchLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var usersInBatchLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getUsersInBatchLiquity({ troveAddress: trove, batchNonce: 123 })];
+                case 1:
+                    usersInBatchLiquity = _a.sent();
+                    expect(usersInBatchLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getUserAmountInBatchLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var userAmountInBatchLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getUserAmountInBatchLiquity({ troveAddress: trove, batchNonce: 123, userAddress: ad1 })];
+                case 1:
+                    userAmountInBatchLiquity = _a.sent();
+                    expect(userAmountInBatchLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getUserGasInBatchLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var userGasInBatchLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getUserGasInBatchLiquity({ troveAddress: trove, batchNonce: 123, userAddress: ad1 })];
+                case 1:
+                    userGasInBatchLiquity = _a.sent();
+                    expect(userGasInBatchLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getNumberOfUsersToCloseBatchLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var numberOfUsersToCloseBatchLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getNumberOfUsersToCloseBatchLiquity(trove)];
+                case 1:
+                    numberOfUsersToCloseBatchLiquity = _a.sent();
+                    expect(numberOfUsersToCloseBatchLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getTotalRequiredGasFeeToCloseBatchLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var totalRequiredGasFeeToCloseBatchLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getTotalRequiredGasFeeToCloseBatchLiquity(trove)];
+                case 1:
+                    totalRequiredGasFeeToCloseBatchLiquity = _a.sent();
+                    expect(totalRequiredGasFeeToCloseBatchLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getRemainingGasFeeToCloseBatch defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var remainingGasFeeToCloseBatch;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getRemainingGasFeeToCloseBatch(trove)];
+                case 1:
+                    remainingGasFeeToCloseBatch = _a.sent();
+                    expect(remainingGasFeeToCloseBatch).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getUserDebtLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var userDebtLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getUserDebtLiquity({ troveAddress: trove, userAddress: ad1 })];
+                case 1:
+                    userDebtLiquity = _a.sent();
+                    expect(userDebtLiquity).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getRequiredGasFeeToParticipateCurrrentBatchLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var requiredGasFeeToParticipateCurrrentBatchLiquity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getRequiredGasFeeToParticipateCurrrentBatchLiquity({ troveAddress: trove, closeBatch: false, userAddress: ad1 })];
+                case 1:
+                    requiredGasFeeToParticipateCurrrentBatchLiquity = _a.sent();
+                    expect(requiredGasFeeToParticipateCurrrentBatchLiquity).toBeDefined();
                     return [2 /*return*/];
             }
         });
