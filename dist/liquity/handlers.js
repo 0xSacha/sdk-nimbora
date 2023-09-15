@@ -95,7 +95,7 @@ function handleBorrowLiquity(props) {
                         ethAmount: ethAmount,
                         closeBatch: closeBatch
                     };
-                    return [4 /*yield*/, this.buildCallDataApproveBorrowLiquity(buildCallDataBorrowLiquityProps)];
+                    return [4 /*yield*/, this.buildCallDataBorrowLiquity(buildCallDataBorrowLiquityProps)];
                 case 5:
                     borrowCall = _d.sent();
                     callsToExecute.push(borrowCall);

@@ -188,7 +188,7 @@ function buildCallDataRepayLiquity(props) {
                     gasFeeToParticipateCurrrentBatch = _a.sent();
                     repayCall = {
                         contractAddress: troveAddress,
-                        entrypoint: "borrow",
+                        entrypoint: "repay",
                         calldata: [
                             lusdAmount,
                             gasFeeToParticipateCurrrentBatch.toString()

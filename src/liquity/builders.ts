@@ -126,7 +126,7 @@ export async function buildCallDataRepayLiquity(this: NimboraSDK, props: BuildCa
     // const gasFeeToParticipateCurrrentBatchUint256: Uint256 = uint256.bnToUint256(gasFeeToParticipateCurrrentBatch)
     const repayCall: Call = {
         contractAddress: troveAddress,
-        entrypoint: "borrow",
+        entrypoint: "repay",
         calldata: [
             lusdAmount,
             gasFeeToParticipateCurrrentBatch.toString()

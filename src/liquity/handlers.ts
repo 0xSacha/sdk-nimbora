@@ -67,7 +67,7 @@ export async function handleBorrowLiquity(this: NimboraSDK, props: handleBorrowL
     closeBatch: closeBatch
   };
 
-  let borrowCall = await this.buildCallDataApproveBorrowLiquity(buildCallDataBorrowLiquityProps);
+  let borrowCall = await this.buildCallDataBorrowLiquity(buildCallDataBorrowLiquityProps);
   callsToExecute.push(borrowCall);
 
   try {
