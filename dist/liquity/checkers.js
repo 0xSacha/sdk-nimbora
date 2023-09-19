@@ -61,11 +61,11 @@ exports.checkTrove = checkTrove;
  */
 function checkBalanceBorrowLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, ethAmount, closeBatch, userAddress, ethAddress, tokenBalanceProps, userTokenBalance, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasRequired, ethRequired;
+        var troveAddress, ethAmount, gasRequired, userAddress, ethAddress, tokenBalanceProps, userTokenBalance, ethRequired;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    troveAddress = props.troveAddress, ethAmount = props.ethAmount, closeBatch = props.closeBatch, userAddress = props.userAddress;
+                    troveAddress = props.troveAddress, ethAmount = props.ethAmount, gasRequired = props.gasRequired, userAddress = props.userAddress;
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
@@ -77,14 +77,6 @@ function checkBalanceBorrowLiquity(props) {
                     return [4 /*yield*/, this.getBalance(tokenBalanceProps)];
                 case 1:
                     userTokenBalance = _a.sent();
-                    getRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-                        troveAddress: troveAddress,
-                        userAddress: userAddress,
-                        closeBatch: closeBatch
-                    };
-                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)];
-                case 2:
-                    gasRequired = _a.sent();
                     ethRequired = ethAmount + gasRequired;
                     if (userTokenBalance < ethRequired) {
                         return [2 /*return*/, (false)];
@@ -106,11 +98,11 @@ exports.checkBalanceBorrowLiquity = checkBalanceBorrowLiquity;
  */
 function checkBalanceRepayLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, lusdAmount, closeBatch, userAddress, ethAddress, lusdAddress, ethBalanceProps, userEthBalance, lusdAmountBalanceProps, userLusdBalance, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasRequired, isEnoughLusd, isEnoughEth, checkBalanceRepayLiquityRes;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var troveAddress, lusdAmount, gasRequired, userAddress, ethAddress, lusdAddress, ethBalanceProps, lusdAmountBalanceProps, _a, userEthBalance, userLusdBalance, isEnoughLusd, isEnoughEth, checkBalanceRepayLiquityRes;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    troveAddress = props.troveAddress, lusdAmount = props.lusdAmount, closeBatch = props.closeBatch, userAddress = props.userAddress;
+                    troveAddress = props.troveAddress, lusdAmount = props.lusdAmount, gasRequired = props.gasRequired, userAddress = props.userAddress;
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
@@ -120,24 +112,16 @@ function checkBalanceRepayLiquity(props) {
                         tokenAddress: ethAddress,
                         userAddress: userAddress
                     };
-                    return [4 /*yield*/, this.getBalance(ethBalanceProps)];
-                case 1:
-                    userEthBalance = _a.sent();
                     lusdAmountBalanceProps = {
                         tokenAddress: lusdAddress,
                         userAddress: userAddress
                     };
-                    return [4 /*yield*/, this.getBalance(lusdAmountBalanceProps)];
-                case 2:
-                    userLusdBalance = _a.sent();
-                    getRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-                        troveAddress: troveAddress,
-                        userAddress: userAddress,
-                        closeBatch: closeBatch
-                    };
-                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)];
-                case 3:
-                    gasRequired = _a.sent();
+                    return [4 /*yield*/, Promise.all([
+                            this.getBalance(ethBalanceProps),
+                            this.getBalance(lusdAmountBalanceProps)
+                        ])];
+                case 1:
+                    _a = _b.sent(), userEthBalance = _a[0], userLusdBalance = _a[1];
                     isEnoughLusd = true;
                     isEnoughEth = true;
                     if (userLusdBalance < lusdAmount) {
@@ -150,7 +134,7 @@ function checkBalanceRepayLiquity(props) {
                         isEnoughLusd: isEnoughLusd,
                         isEnoughEth: isEnoughEth
                     };
-                    return [2 /*return*/, (checkBalanceRepayLiquityRes)];
+                    return [2 /*return*/, checkBalanceRepayLiquityRes];
             }
         });
     });
@@ -164,11 +148,11 @@ exports.checkBalanceRepayLiquity = checkBalanceRepayLiquity;
  */
 function checkAllowanceBorrowLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, ethAmount, closeBatch, userAddress, ethAddress, ethAllowanceProps, userEthAllowance, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasRequired, ethAllowanceRequired;
+        var troveAddress, ethAmount, gasRequired, userAddress, ethAddress, ethAllowanceProps, userEthAllowance, ethAllowanceRequired;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    troveAddress = props.troveAddress, ethAmount = props.ethAmount, closeBatch = props.closeBatch, userAddress = props.userAddress;
+                    troveAddress = props.troveAddress, ethAmount = props.ethAmount, gasRequired = props.gasRequired, userAddress = props.userAddress;
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
@@ -181,14 +165,6 @@ function checkAllowanceBorrowLiquity(props) {
                     return [4 /*yield*/, this.getAllowance(ethAllowanceProps)];
                 case 1:
                     userEthAllowance = _a.sent();
-                    getRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-                        troveAddress: troveAddress,
-                        userAddress: userAddress,
-                        closeBatch: closeBatch
-                    };
-                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)];
-                case 2:
-                    gasRequired = _a.sent();
                     ethAllowanceRequired = ethAmount + gasRequired;
                     if (userEthAllowance < ethAllowanceRequired) {
                         return [2 /*return*/, (false)];
@@ -203,18 +179,18 @@ function checkAllowanceBorrowLiquity(props) {
 }
 exports.checkAllowanceBorrowLiquity = checkAllowanceBorrowLiquity;
 /**
- * Checks if the user has sufficient allowances to repay LUSD and ETH.
+ * Checks if the user has sufficient ETH and LUSD allowances to repay LUSD.
  * @param this - The NimboraSDK instance.
  * @param props - An object containing Trove, LUSD amount, batch close flag, and user information.
  * @returns A promise that resolves to an object indicating if the user has enough allowances for LUSD and ETH.
  */
 function checkAllowanceRepayLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, lusdAmount, closeBatch, userAddress, ethAddress, lusdAddress, ethAllowanceProps, userEthAllowance, lusdAllowanceProps, userLusdAllowance, getRequiredGasFeeToParticipateCurrrentBatchLiquityProps, gasRequired, isEnoughAllowanceLusd, isEnoughAllowanceEth, checkBalanceRepayLiquityRes;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var troveAddress, lusdAmount, gasRequired, userAddress, ethAddress, lusdAddress, ethAllowanceProps, lusdAllowanceProps, _a, userEthAllowance, userLusdAllowance, isEnoughAllowanceLusd, isEnoughAllowanceEth, checkBalanceRepayLiquityRes;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    troveAddress = props.troveAddress, lusdAmount = props.lusdAmount, closeBatch = props.closeBatch, userAddress = props.userAddress;
+                    troveAddress = props.troveAddress, lusdAmount = props.lusdAmount, gasRequired = props.gasRequired, userAddress = props.userAddress;
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
@@ -225,25 +201,17 @@ function checkAllowanceRepayLiquity(props) {
                         userAddress: userAddress,
                         spender: troveAddress
                     };
-                    return [4 /*yield*/, this.getAllowance(ethAllowanceProps)];
-                case 1:
-                    userEthAllowance = _a.sent();
                     lusdAllowanceProps = {
                         tokenAddress: lusdAddress,
                         userAddress: userAddress,
                         spender: troveAddress
                     };
-                    return [4 /*yield*/, this.getAllowance(lusdAllowanceProps)];
-                case 2:
-                    userLusdAllowance = _a.sent();
-                    getRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-                        troveAddress: troveAddress,
-                        userAddress: userAddress,
-                        closeBatch: closeBatch
-                    };
-                    return [4 /*yield*/, this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)];
-                case 3:
-                    gasRequired = _a.sent();
+                    return [4 /*yield*/, Promise.all([
+                            this.getAllowance(ethAllowanceProps),
+                            this.getAllowance(lusdAllowanceProps)
+                        ])];
+                case 1:
+                    _a = _b.sent(), userEthAllowance = _a[0], userLusdAllowance = _a[1];
                     isEnoughAllowanceLusd = true;
                     isEnoughAllowanceEth = true;
                     if (userLusdAllowance < lusdAmount) {

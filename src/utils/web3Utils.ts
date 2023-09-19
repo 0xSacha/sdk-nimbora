@@ -1,7 +1,7 @@
 import { NimboraSDK } from "..";
-import { ERROR_CODE, GetAllowanceProps, GetBalanceProps } from "../config/types";
+import { BuildApproveCallProps, ERROR_CODE, GetAllowanceProps, GetBalanceProps } from "../config/types";
 import { ErrorWrapper } from '../utils/errorWrapper';
-import { uint256 } from "starknet";
+import { Account, AllowArray, Call, Uint256, uint256 } from "starknet";
 
 /**
  * Retrieves the allowance for a spender to spend tokens on behalf of a user.
@@ -69,6 +69,49 @@ export async function getGasPrice(this: NimboraSDK): Promise<bigint> {
         throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
     }
 }
+
+/**
+ * Estimate the transaction fee for invoking a set of calls on the blockchain.
+ *
+ * @param calls - An array of calls to be executed.
+ * @returns A promise that resolves to the estimated transaction fee as a bigint.
+ * @throws {ErrorWrapper} Throws an error with an error code and the underlying error if the fee estimation fails.
+ * @throws {ErrorWrapper} Throws an error with the code ERROR_CODE.PROVIDER_REQUIRED if the SDK instance does not have a signer set.
+ */
+export async function estimateInvokeFee(this: NimboraSDK, calls: AllowArray<Call>): Promise<bigint> {
+    if (!this.signer) throw new ErrorWrapper({ code: ERROR_CODE.PROVIDER_REQUIRED });
+    try {
+        const { suggestedMaxFee } = await (this.provider as Account).estimateInvokeFee(calls);
+        return suggestedMaxFee;
+    } catch (e) {
+        throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
+    }
+}
+
+
+
+/**
+ * Build an 'approve' call to grant permission for a spender to transfer a specific amount of tokens on behalf of the owner.
+ *
+ * @param props - An object containing the necessary properties to build the 'approve' call.
+ * @returns A promise that resolves to a Call object representing the 'approve' call.
+ */
+export function buildApproveCall(this: NimboraSDK, props: BuildApproveCallProps): Call {
+    const { tokenAddress, spenderAddress, amount } = props;
+    const amountUint256: Uint256 = uint256.bnToUint256(amount);
+    let approveCall: Call = {
+        contractAddress: tokenAddress,
+        entrypoint: "approve",
+        calldata: [
+            spenderAddress,
+            amountUint256.low,
+            amountUint256.high
+        ]
+    };
+
+    return approveCall;
+}
+
 
 
 

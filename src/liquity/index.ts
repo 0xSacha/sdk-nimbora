@@ -1,7 +1,7 @@
 import { getBatchGasUnitLiquity, getBatchGasUnitPerUserLiquity, getBatchGasFeePerUserLiquity, getGasTankLiquity, getAllowanceLiquity, getBatchCounterLiquity, getLastHandledBatchNonceLiquity, getUsersInBatchLiquity, getUserAmountInBatchLiquity, getUserGasInBatchLiquity, getNumberOfUsersToCloseBatchLiquity, getTotalRequiredGasFeeToCloseBatchLiquity, getRemainingGasFeeToCloseBatch, getTotalTroveDebtLiquity, getUserDebtLiquity, getLUSDTotalSupply, getRequiredGasFeeToParticipateCurrrentBatchLiquity } from './getters';
 import { checkAllowanceBorrowLiquity, checkAllowanceRepayLiquity, checkBalanceBorrowLiquity, checkBalanceRepayLiquity, checkTrove } from './checkers';
 import { buildCallDataApproveBorrowLiquity, buildCallDataApproveRepayLiquity, buildCallDataBorrowLiquity, buildCallDataRepayLiquity } from './builders';
-import { handleBorrowLiquity, handleRepayLiquity } from './handlers';
+import { handleBorrowLiquity, handleRepayLiquity, handleBorrowLiquityManual, handleRepayLiquityManual } from './handlers';
 
 export {
   getBatchGasUnitLiquity,
@@ -34,5 +34,7 @@ export {
   buildCallDataRepayLiquity,
 
   handleBorrowLiquity,
-  handleRepayLiquity
+  handleRepayLiquity,
+  handleBorrowLiquityManual,
+  handleRepayLiquityManual
 };

@@ -14,6 +14,8 @@ var NimboraSDK = /** @class */ (function () {
         this.getAllowance = web3Utils_1.getAllowance.bind(this);
         this.getTotalSupply = web3Utils_1.getTotalSupply.bind(this);
         this.getGasPrice = web3Utils_1.getGasPrice.bind(this);
+        this.buildApproveCall = web3Utils_1.buildApproveCall.bind(this);
+        this.estimateInvokeFee = web3Utils_1.estimateInvokeFee.bind(this);
         ////////////////
         /// Liquity  ///
         ////////////////
@@ -56,6 +58,8 @@ var NimboraSDK = /** @class */ (function () {
         // Handlers
         this.handleBorrowLiquity = liquity_1.handleBorrowLiquity.bind(this);
         this.handleRepayLiquity = liquity_1.handleRepayLiquity.bind(this);
+        this.handleBorrowLiquityManual = liquity_1.handleBorrowLiquityManual.bind(this);
+        this.handleRepayLiquityManual = liquity_1.handleRepayLiquityManual.bind(this);
         if (!provider) {
             throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.PROVIDER_REQUIRED });
         }

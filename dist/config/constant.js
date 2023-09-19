@@ -1,7 +1,7 @@
 "use strict";
 var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ERROR_MESSAGE = exports.ERROR_CODE_DESC = void 0;
+exports.MAX_INVOKE_FEES_REPAY = exports.MAX_INVOKE_FEES_BORROW = exports.ERROR_MESSAGE = exports.ERROR_CODE_DESC = void 0;
 var types_1 = require("./types");
 exports.ERROR_CODE_DESC = (_a = {},
     _a[types_1.ERROR_CODE.CANNOT_EXECUTE_TRANSACTION] = 'CANNOT_CONFIRM_TRANSACTION',
@@ -27,3 +27,5 @@ exports.ERROR_MESSAGE = (_b = {},
     _b[types_1.ERROR_CODE.APPROVAL_REQUIRED] = 'Insuficient allowance, you have to allow the approve',
     _b[types_1.ERROR_CODE.NOTHING_TO_APPROVE] = 'Nothing to be approved',
     _b);
+exports.MAX_INVOKE_FEES_BORROW = BigInt("24340500219064");
+exports.MAX_INVOKE_FEES_REPAY = BigInt("25340500219064"); // to update

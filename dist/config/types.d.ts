@@ -20,6 +20,11 @@ export type GetBalanceProps = {
     tokenAddress: string;
     userAddress: string;
 };
+export type BuildApproveCallProps = {
+    tokenAddress: string;
+    spenderAddress: string;
+    amount: bigint;
+};
 export type GetAllowanceLiquityProps = {
     troveAddress: string;
     userAddress: string;
@@ -62,13 +67,13 @@ export type GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
 export type CheckBalanceBorrowLiquityProps = {
     troveAddress: string;
     ethAmount: bigint;
-    closeBatch: boolean;
+    gasRequired: bigint;
     userAddress: string;
 };
 export type CheckBalanceRepayLiquityProps = {
     troveAddress: string;
     lusdAmount: bigint;
-    closeBatch: boolean;
+    gasRequired: bigint;
     userAddress: string;
 };
 export type CheckBalanceRepayLiquityRes = {
@@ -78,13 +83,13 @@ export type CheckBalanceRepayLiquityRes = {
 export type CheckAllowanceBorrowLiquityProps = {
     troveAddress: string;
     ethAmount: bigint;
-    closeBatch: boolean;
+    gasRequired: bigint;
     userAddress: string;
 };
 export type CheckAllowanceRepayLiquityProps = {
     troveAddress: string;
     lusdAmount: bigint;
-    closeBatch: boolean;
+    gasRequired: bigint;
     userAddress: string;
 };
 export type CheckAllowanceRepayLiquityRes = {
@@ -93,17 +98,15 @@ export type CheckAllowanceRepayLiquityRes = {
 };
 export type BuildCallDataApproveBorrowLiquityProps = {
     troveAddress: string;
-    userAddress: string;
     ethAmount: bigint;
-    closeBatch: boolean;
+    gasRequired: bigint;
 };
 export type BuildCallDataApproveRepayLiquityProps = {
     troveAddress: string;
-    userAddress: string;
     lusdAmount: bigint;
-    closeBatch: boolean;
-    isEnoughtAllowanceLusd?: boolean;
-    isEnoughtAllowanceEth?: boolean;
+    gasRequired: bigint;
+    isEnoughAllowanceLusd?: boolean;
+    isEnoughAllowanceEth?: boolean;
 };
 export type BuildCallDataApproveRepayLiquityRes = {
     lusdApproveCall?: Call;
@@ -111,28 +114,41 @@ export type BuildCallDataApproveRepayLiquityRes = {
 };
 export type BuildCallDataBorrowLiquityProps = {
     troveAddress: string;
-    userAddress: string;
     ethAmount: bigint;
-    closeBatch: boolean;
+    gasRequired: bigint;
 };
 export type BuildCallDataRepayLiquityProps = {
     troveAddress: string;
-    userAddress: string;
     lusdAmount: bigint;
-    closeBatch: boolean;
+    gasRequired: bigint;
 };
-export type handleBorrowLiquityProps = {
+export type HandleBorrowLiquityProps = {
     troveAddress: string;
     ethAmount: bigint;
     closeBatch?: boolean;
     allowApprove?: boolean;
     referral?: string;
 };
-export type handleRepayLiquityProps = {
+export type HandleBorrowLiquityManualProps = {
+    troveAddress: string;
+    ethAmount: bigint;
+    gas: bigint;
+    approveEth?: boolean;
+    referral?: string;
+};
+export type HandleRepayLiquityProps = {
     troveAddress: string;
     lusdAmount: bigint;
     closeBatch?: boolean;
     allowApprove?: boolean;
+    referral?: string;
+};
+export type HandleRepayLiquityManualProps = {
+    troveAddress: string;
+    lusdAmount: bigint;
+    gas: bigint;
+    approveLusd?: boolean;
+    approveEth?: boolean;
     referral?: string;
 };
 export type TroveInfo = {

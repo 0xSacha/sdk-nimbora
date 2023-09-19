@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isValidEthereumAddress = exports.getGasPrice = exports.getTotalSupply = exports.getBalance = exports.getAllowance = void 0;
+exports.isValidEthereumAddress = exports.buildApproveCall = exports.estimateInvokeFee = exports.getGasPrice = exports.getTotalSupply = exports.getBalance = exports.getAllowance = void 0;
 var types_1 = require("../config/types");
 var errorWrapper_1 = require("../utils/errorWrapper");
 var starknet_1 = require("starknet");
@@ -158,6 +158,59 @@ function getGasPrice() {
     });
 }
 exports.getGasPrice = getGasPrice;
+/**
+ * Estimate the transaction fee for invoking a set of calls on the blockchain.
+ *
+ * @param calls - An array of calls to be executed.
+ * @returns A promise that resolves to the estimated transaction fee as a bigint.
+ * @throws {ErrorWrapper} Throws an error with an error code and the underlying error if the fee estimation fails.
+ * @throws {ErrorWrapper} Throws an error with the code ERROR_CODE.PROVIDER_REQUIRED if the SDK instance does not have a signer set.
+ */
+function estimateInvokeFee(calls) {
+    return __awaiter(this, void 0, void 0, function () {
+        var suggestedMaxFee, e_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (!this.signer)
+                        throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.PROVIDER_REQUIRED });
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, this.provider.estimateInvokeFee(calls)];
+                case 2:
+                    suggestedMaxFee = (_a.sent()).suggestedMaxFee;
+                    return [2 /*return*/, suggestedMaxFee];
+                case 3:
+                    e_5 = _a.sent();
+                    throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_5 });
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.estimateInvokeFee = estimateInvokeFee;
+/**
+ * Build an 'approve' call to grant permission for a spender to transfer a specific amount of tokens on behalf of the owner.
+ *
+ * @param props - An object containing the necessary properties to build the 'approve' call.
+ * @returns A promise that resolves to a Call object representing the 'approve' call.
+ */
+function buildApproveCall(props) {
+    var tokenAddress = props.tokenAddress, spenderAddress = props.spenderAddress, amount = props.amount;
+    var amountUint256 = starknet_1.uint256.bnToUint256(amount);
+    var approveCall = {
+        contractAddress: tokenAddress,
+        entrypoint: "approve",
+        calldata: [
+            spenderAddress,
+            amountUint256.low,
+            amountUint256.high
+        ]
+    };
+    return approveCall;
+}
+exports.buildApproveCall = buildApproveCall;
 /**
  * Checks if a given string is a valid Ethereum address.
  * @param address - The Ethereum address to validate.

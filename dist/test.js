@@ -40,6 +40,7 @@ var starknet_1 = require("starknet");
 var _1 = require(".");
 describe('NimboraSDK Integration Tests', function () {
     var sdk;
+    var accountSdk;
     var token = "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
     var ad1 = "0x0259CDc9a9a43ac8Ce627A8341c3687Cc1E6E97b9E6A1A4b80dBC3d6E9ce734b";
     var ad2 = "0x02fa12e47978C846C5731A3cAa0Cc6e87cA4059993b0d92Fad6C8c47EA77894F";
@@ -51,6 +52,10 @@ describe('NimboraSDK Integration Tests', function () {
             }
         });
         sdk = new _1.NimboraSDK(provider_testnet, starknet_1.constants.StarknetChainId.SN_GOERLI);
+        var accountAddress = "";
+        var accountPk = "";
+        var account = new starknet_1.Account(provider_testnet, accountAddress, accountPk);
+        accountSdk = new _1.NimboraSDK(account, starknet_1.constants.StarknetChainId.SN_GOERLI);
     });
     it('balance defined', function () { return __awaiter(void 0, void 0, void 0, function () {
         var balance;
@@ -316,10 +321,57 @@ describe('NimboraSDK Integration Tests', function () {
         var ethContract;
         return __generator(this, function (_a) {
             ethContract = sdk.getEthContract();
-            console.log(ethContract.address);
             expect(ethContract.address).toBeDefined();
             return [2 /*return*/];
         });
     }); });
-    // Add more integration tests for other functions in a similar manner
+    // it('Get borrow invoke fees defined', async () => {
+    //     let callsToExecute: Call[] = [];
+    //     const ethAmount = BigInt("1000000000000000")
+    //     const requiredGasFeeToParticipateCurrrentBatchLiquity = await accountSdk.getRequiredGasFeeToParticipateCurrrentBatchLiquity({ troveAddress: trove, closeBatch: false, userAddress: ad1 });
+    //     let buildCallDataApproveBorrowLiquityProps: BuildCallDataApproveBorrowLiquityProps = {
+    //         troveAddress: trove,
+    //         ethAmount: ethAmount,
+    //         gasRequired: requiredGasFeeToParticipateCurrrentBatchLiquity
+    //     };
+    //     let ethApproveCall = accountSdk.buildCallDataApproveBorrowLiquity(buildCallDataApproveBorrowLiquityProps);
+    //     callsToExecute.push(ethApproveCall);
+    //     let buildCallDataBorrowLiquityProps: BuildCallDataBorrowLiquityProps = {
+    //         troveAddress: trove,
+    //         ethAmount: ethAmount,
+    //         gasRequired: requiredGasFeeToParticipateCurrrentBatchLiquity
+    //     };
+    //     let borrowCall = accountSdk.buildCallDataBorrowLiquity(buildCallDataBorrowLiquityProps);
+    //     callsToExecute.push(borrowCall);
+    //     const maxGasFeeInvoke = await accountSdk.estimateInvokeFee(callsToExecute)
+    //     console.log(maxGasFeeInvoke)
+    //     expect(maxGasFeeInvoke).toBeDefined();
+    // });
+    // it('Get repay invoke fees defined', async () => {
+    //     let callsToExecute: Call[] = [];
+    //     const lusdAmount = BigInt("1000000000000000")
+    //     const requiredGasFeeToParticipateCurrrentBatchLiquity = await accountSdk.getRequiredGasFeeToParticipateCurrrentBatchLiquity({ troveAddress: trove, closeBatch: false, userAddress: ad1 });
+    //     let buildCallDataApproveRepayLiquityProps: BuildCallDataApproveRepayLiquityProps = {
+    //         troveAddress: trove,
+    //         lusdAmount: lusdAmount,
+    //         gasRequired: requiredGasFeeToParticipateCurrrentBatchLiquity,
+    //     };
+    //     let buildCallDataApproveRepayLiquityRes: BuildCallDataApproveRepayLiquityRes = accountSdk.buildCallDataApproveRepayLiquity(buildCallDataApproveRepayLiquityProps);
+    //     if (buildCallDataApproveRepayLiquityRes.ethApproveCall) {
+    //         callsToExecute.push(buildCallDataApproveRepayLiquityRes.ethApproveCall);
+    //     }
+    //     if (buildCallDataApproveRepayLiquityRes.lusdApproveCall) {
+    //         callsToExecute.push(buildCallDataApproveRepayLiquityRes.lusdApproveCall);
+    //     }
+    //     let buildCallDataBorrowLiquityProps: BuildCallDataRepayLiquityProps = {
+    //         troveAddress: trove,
+    //         lusdAmount: lusdAmount,
+    //         gasRequired: requiredGasFeeToParticipateCurrrentBatchLiquity
+    //     };
+    //     let repayCall = accountSdk.buildCallDataRepayLiquity(buildCallDataBorrowLiquityProps);
+    //     callsToExecute.push(repayCall);
+    //     const maxGasFeeInvoke = await accountSdk.estimateInvokeFee(callsToExecute)
+    //     console.log(maxGasFeeInvoke)
+    //     expect(maxGasFeeInvoke).toBeDefined();
+    // });
 });

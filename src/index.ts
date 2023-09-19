@@ -1,9 +1,9 @@
 import { constants, Account, Provider, SignerInterface } from 'starknet';
 import { ERROR_CODE } from './config/types';
 import { getEthContract, getTokenContract, getLiquityManagerContract, getTroveContract, getLusdContract, getOracleContract } from './config/contracts';
-import { getBatchGasUnitLiquity, getBatchGasUnitPerUserLiquity, getBatchGasFeePerUserLiquity, getGasTankLiquity, getAllowanceLiquity, getBatchCounterLiquity, getLastHandledBatchNonceLiquity, getUsersInBatchLiquity, getUserAmountInBatchLiquity, getUserGasInBatchLiquity, getNumberOfUsersToCloseBatchLiquity, getTotalRequiredGasFeeToCloseBatchLiquity, getRemainingGasFeeToCloseBatch, getTotalTroveDebtLiquity, getUserDebtLiquity, getLUSDTotalSupply, getRequiredGasFeeToParticipateCurrrentBatchLiquity, checkAllowanceBorrowLiquity, checkAllowanceRepayLiquity, checkBalanceBorrowLiquity, checkTrove, buildCallDataApproveBorrowLiquity, buildCallDataApproveRepayLiquity, buildCallDataBorrowLiquity, buildCallDataRepayLiquity, checkBalanceRepayLiquity, handleBorrowLiquity, handleRepayLiquity } from './liquity';
+import { getBatchGasUnitLiquity, getBatchGasUnitPerUserLiquity, getBatchGasFeePerUserLiquity, getGasTankLiquity, getAllowanceLiquity, getBatchCounterLiquity, getLastHandledBatchNonceLiquity, getUsersInBatchLiquity, getUserAmountInBatchLiquity, getUserGasInBatchLiquity, getNumberOfUsersToCloseBatchLiquity, getTotalRequiredGasFeeToCloseBatchLiquity, getRemainingGasFeeToCloseBatch, getTotalTroveDebtLiquity, getUserDebtLiquity, getLUSDTotalSupply, getRequiredGasFeeToParticipateCurrrentBatchLiquity, checkAllowanceBorrowLiquity, checkAllowanceRepayLiquity, checkBalanceBorrowLiquity, checkTrove, buildCallDataApproveBorrowLiquity, buildCallDataApproveRepayLiquity, buildCallDataBorrowLiquity, buildCallDataRepayLiquity, checkBalanceRepayLiquity, handleBorrowLiquity, handleRepayLiquity, handleBorrowLiquityManual, handleRepayLiquityManual } from './liquity';
 import { ErrorWrapper } from './utils/errorWrapper';
-import { getBalance, getAllowance, getTotalSupply, getGasPrice } from './utils/web3Utils';
+import { getBalance, getAllowance, getTotalSupply, getGasPrice, buildApproveCall, estimateInvokeFee } from './utils/web3Utils';
 
 export class NimboraSDK {
   public provider: Account | Provider;
@@ -33,7 +33,9 @@ export class NimboraSDK {
   public getBalance = getBalance.bind(this);
   public getAllowance = getAllowance.bind(this);
   public getTotalSupply = getTotalSupply.bind(this);
-  public getGasPrice = getGasPrice.bind(this)
+  public getGasPrice = getGasPrice.bind(this);
+  public buildApproveCall = buildApproveCall.bind(this);
+  public estimateInvokeFee = estimateInvokeFee.bind(this);
 
   ////////////////
   /// Liquity  ///
@@ -46,6 +48,7 @@ export class NimboraSDK {
   public getLusdContract = getLusdContract.bind(this)
   public getTroveContract = getTroveContract.bind(this)
   public getOracleContract = getOracleContract.bind(this)
+
 
   // Getters
   public getBatchGasUnitLiquity = getBatchGasUnitLiquity.bind(this);
@@ -82,4 +85,6 @@ export class NimboraSDK {
   // Handlers
   public handleBorrowLiquity = handleBorrowLiquity.bind(this)
   public handleRepayLiquity = handleRepayLiquity.bind(this)
+  public handleBorrowLiquityManual = handleBorrowLiquityManual.bind(this)
+  public handleRepayLiquityManual = handleRepayLiquityManual.bind(this)
 }

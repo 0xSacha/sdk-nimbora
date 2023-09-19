@@ -29,7 +29,7 @@ export declare function checkBalanceRepayLiquity(this: NimboraSDK, props: CheckB
  */
 export declare function checkAllowanceBorrowLiquity(this: NimboraSDK, props: CheckAllowanceBorrowLiquityProps): Promise<boolean>;
 /**
- * Checks if the user has sufficient allowances to repay LUSD and ETH.
+ * Checks if the user has sufficient ETH and LUSD allowances to repay LUSD.
  * @param this - The NimboraSDK instance.
  * @param props - An object containing Trove, LUSD amount, batch close flag, and user information.
  * @returns A promise that resolves to an object indicating if the user has enough allowances for LUSD and ETH.

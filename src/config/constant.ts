@@ -26,3 +26,5 @@ export const ERROR_MESSAGE: Partial<Record<ERROR_CODE, string>> = {
     [ERROR_CODE.NOTHING_TO_APPROVE]: 'Nothing to be approved',
 };
 
+export const MAX_INVOKE_FEES_BORROW: bigint = BigInt("24340500219064")
+export const MAX_INVOKE_FEES_REPAY: bigint = BigInt("25340500219064") // to update

@@ -379,4 +379,3 @@ export async function getRequiredGasFeeToParticipateCurrrentBatchLiquity(this: N
     }
   }
 }
-

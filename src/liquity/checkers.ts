@@ -25,7 +25,7 @@ export function checkTrove(this: NimboraSDK, troveAddress: string): boolean {
  * @returns A promise that resolves to true if the user has a sufficient balance; otherwise, false.
  */
 export async function checkBalanceBorrowLiquity(this: NimboraSDK, props: CheckBalanceBorrowLiquityProps): Promise<boolean> {
-    const { troveAddress, ethAmount, closeBatch, userAddress } = props
+    const { troveAddress, ethAmount, gasRequired, userAddress } = props
     if (!this.checkTrove(troveAddress)) {
         throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
     }
@@ -35,13 +35,6 @@ export async function checkBalanceBorrowLiquity(this: NimboraSDK, props: CheckBa
         userAddress: userAddress
     }
     const userTokenBalance = await this.getBalance(tokenBalanceProps)
-
-    const getRequiredGasFeeToParticipateCurrrentBatchLiquityProps: GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-        troveAddress: troveAddress,
-        userAddress: userAddress,
-        closeBatch: closeBatch
-    }
-    const gasRequired = await this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
     let ethRequired = ethAmount + gasRequired;
     if (userTokenBalance < ethRequired) {
         return (false)
@@ -58,51 +51,49 @@ export async function checkBalanceBorrowLiquity(this: NimboraSDK, props: CheckBa
  * @returns A promise that resolves to an object indicating if the user has enough LUSD and ETH balance.
  */
 export async function checkBalanceRepayLiquity(this: NimboraSDK, props: CheckBalanceRepayLiquityProps): Promise<CheckBalanceRepayLiquityRes> {
-    const { troveAddress, lusdAmount, closeBatch, userAddress } = props
+    const { troveAddress, lusdAmount, gasRequired, userAddress } = props;
+
     if (!this.checkTrove(troveAddress)) {
         throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
     }
-    const ethAddress: string = getEthAddress(this.chainId)
-    const lusdAddress: string = getLusdAddress(this.chainId)
+
+    const ethAddress: string = getEthAddress(this.chainId);
+    const lusdAddress: string = getLusdAddress(this.chainId);
 
     let ethBalanceProps: GetBalanceProps = {
         tokenAddress: ethAddress,
         userAddress: userAddress
-    }
-    const userEthBalance = await this.getBalance(ethBalanceProps)
-
+    };
 
     let lusdAmountBalanceProps: GetBalanceProps = {
         tokenAddress: lusdAddress,
         userAddress: userAddress
-    }
-    const userLusdBalance = await this.getBalance(lusdAmountBalanceProps)
+    };
 
-
-    const getRequiredGasFeeToParticipateCurrrentBatchLiquityProps: GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-        troveAddress: troveAddress,
-        userAddress: userAddress,
-        closeBatch: closeBatch
-    }
-    const gasRequired = await this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
+    const [userEthBalance, userLusdBalance] = await Promise.all([
+        this.getBalance(ethBalanceProps),
+        this.getBalance(lusdAmountBalanceProps)
+    ]);
 
     let isEnoughLusd: boolean = true;
     let isEnoughEth: boolean = true;
 
     if (userLusdBalance < lusdAmount) {
-        isEnoughLusd = false
+        isEnoughLusd = false;
     }
+
     if (userEthBalance < gasRequired) {
-        isEnoughEth = false
+        isEnoughEth = false;
     }
 
     const checkBalanceRepayLiquityRes: CheckBalanceRepayLiquityRes = {
         isEnoughLusd: isEnoughLusd,
         isEnoughEth: isEnoughEth
-    }
+    };
 
-    return (checkBalanceRepayLiquityRes)
+    return checkBalanceRepayLiquityRes;
 }
+
 
 
 
@@ -113,7 +104,7 @@ export async function checkBalanceRepayLiquity(this: NimboraSDK, props: CheckBal
  * @returns A promise that resolves to true if the user has a sufficient ETH allowance; otherwise, false.
  */
 export async function checkAllowanceBorrowLiquity(this: NimboraSDK, props: CheckAllowanceBorrowLiquityProps): Promise<boolean> {
-    const { troveAddress, ethAmount, closeBatch, userAddress } = props
+    const { troveAddress, ethAmount, gasRequired, userAddress } = props
     if (!this.checkTrove(troveAddress)) {
         throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
     }
@@ -124,13 +115,6 @@ export async function checkAllowanceBorrowLiquity(this: NimboraSDK, props: Check
         spender: troveAddress
     }
     const userEthAllowance = await this.getAllowance(ethAllowanceProps)
-
-    const getRequiredGasFeeToParticipateCurrrentBatchLiquityProps: GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-        troveAddress: troveAddress,
-        userAddress: userAddress,
-        closeBatch: closeBatch
-    }
-    const gasRequired = await this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
     let ethAllowanceRequired = ethAmount + gasRequired;
     if (userEthAllowance < ethAllowanceRequired) {
         return (false)
@@ -142,13 +126,13 @@ export async function checkAllowanceBorrowLiquity(this: NimboraSDK, props: Check
 
 
 /**
- * Checks if the user has sufficient allowances to repay LUSD and ETH.
+ * Checks if the user has sufficient ETH and LUSD allowances to repay LUSD.
  * @param this - The NimboraSDK instance.
  * @param props - An object containing Trove, LUSD amount, batch close flag, and user information.
  * @returns A promise that resolves to an object indicating if the user has enough allowances for LUSD and ETH.
  */
 export async function checkAllowanceRepayLiquity(this: NimboraSDK, props: CheckAllowanceRepayLiquityProps): Promise<CheckAllowanceRepayLiquityRes> {
-    const { troveAddress, lusdAmount, closeBatch, userAddress } = props
+    const { troveAddress, lusdAmount, gasRequired, userAddress } = props
     if (!this.checkTrove(troveAddress)) {
         throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
     }
@@ -160,23 +144,19 @@ export async function checkAllowanceRepayLiquity(this: NimboraSDK, props: CheckA
         userAddress: userAddress,
         spender: troveAddress
     }
-    const userEthAllowance = await this.getAllowance(ethAllowanceProps)
-
 
     let lusdAllowanceProps: GetAllowanceProps = {
         tokenAddress: lusdAddress,
         userAddress: userAddress,
         spender: troveAddress
     }
-    const userLusdAllowance = await this.getAllowance(lusdAllowanceProps)
 
 
-    const getRequiredGasFeeToParticipateCurrrentBatchLiquityProps: GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-        troveAddress: troveAddress,
-        userAddress: userAddress,
-        closeBatch: closeBatch
-    }
-    const gasRequired = await this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
+    const [userEthAllowance, userLusdAllowance] = await Promise.all([
+        this.getAllowance(ethAllowanceProps),
+        this.getAllowance(lusdAllowanceProps)
+    ]);
+
 
     let isEnoughAllowanceLusd: boolean = true;
     let isEnoughAllowanceEth: boolean = true;

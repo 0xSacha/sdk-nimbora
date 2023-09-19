@@ -1,80 +1,55 @@
 import { getEthAddress, getLusdAddress } from "../config/addresses";
 import { NimboraSDK } from "..";
-import { ERROR_CODE, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps, BuildCallDataApproveRepayLiquityProps, BuildCallDataApproveBorrowLiquityProps, BuildCallDataApproveRepayLiquityRes, BuildCallDataBorrowLiquityProps, BuildCallDataRepayLiquityProps } from "../config/types";
+import { ERROR_CODE, BuildCallDataApproveRepayLiquityProps, BuildCallDataApproveBorrowLiquityProps, BuildCallDataApproveRepayLiquityRes, BuildCallDataBorrowLiquityProps, BuildCallDataRepayLiquityProps, BuildApproveCallProps } from "../config/types";
 import { ErrorWrapper } from '../utils/errorWrapper';
 import { Call, Uint256, uint256 } from "starknet";
 
 
 
-export async function buildCallDataApproveBorrowLiquity(this: NimboraSDK, props: BuildCallDataApproveBorrowLiquityProps): Promise<Call> {
-    const { troveAddress, userAddress, ethAmount, closeBatch } = props
+export function buildCallDataApproveBorrowLiquity(this: NimboraSDK, props: BuildCallDataApproveBorrowLiquityProps): Call {
+    const { troveAddress, ethAmount, gasRequired } = props
     if (!this.checkTrove(troveAddress)) {
         throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
     }
     const ethAddress = getEthAddress(this.chainId)
-    const getRequiredGasFeeToParticipateCurrrentBatchLiquityProps: GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-        troveAddress: troveAddress,
-        userAddress: userAddress,
-        closeBatch: closeBatch
+    const buildApproveCallProps: BuildApproveCallProps = {
+        tokenAddress: ethAddress,
+        spenderAddress: troveAddress,
+        amount: gasRequired + ethAmount
     }
-    const gasFeeToParticipateCurrrentBatch = await this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
-    const desiredAmountUint256: Uint256 = uint256.bnToUint256(gasFeeToParticipateCurrrentBatch + ethAmount)
-    const tokenApproveCall: Call = {
-        contractAddress: ethAddress,
-        entrypoint: "approve",
-        calldata: [
-            troveAddress,
-            desiredAmountUint256.low,
-            desiredAmountUint256.high
-        ]
-    }
+    const tokenApproveCall = this.buildApproveCall(buildApproveCallProps)
     return (tokenApproveCall)
 }
 
 
-export async function buildCallDataApproveRepayLiquity(this: NimboraSDK, props: BuildCallDataApproveRepayLiquityProps): Promise<BuildCallDataApproveRepayLiquityRes> {
-    const { troveAddress, userAddress, lusdAmount, closeBatch, isEnoughtAllowanceLusd = false, isEnoughtAllowanceEth = false } = props
+export function buildCallDataApproveRepayLiquity(this: NimboraSDK, props: BuildCallDataApproveRepayLiquityProps): BuildCallDataApproveRepayLiquityRes {
+    const { troveAddress, lusdAmount, gasRequired, isEnoughAllowanceLusd = false, isEnoughAllowanceEth = false } = props
     if (!this.checkTrove(troveAddress)) {
         throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
     }
-    if (isEnoughtAllowanceLusd && isEnoughtAllowanceEth) throw new ErrorWrapper({ code: ERROR_CODE.NOTHING_TO_APPROVE });
+    if (isEnoughAllowanceLusd && isEnoughAllowanceEth) throw new ErrorWrapper({ code: ERROR_CODE.NOTHING_TO_APPROVE });
 
-    const ethAddress = getEthAddress(this.chainId)
-    const lusdAddress = getLusdAddress(this.chainId)
-
-    const lusdAmountUint256: Uint256 = uint256.bnToUint256(lusdAmount)
     let lusdApproveCall: Call | undefined;
-    if (!isEnoughtAllowanceLusd) {
-        lusdApproveCall = {
-            contractAddress: lusdAddress,
-            entrypoint: "approve",
-            calldata: [
-                troveAddress,
-                lusdAmountUint256.low,
-                lusdAmountUint256.high
-            ]
-        }
-    }
-
-    const getRequiredGasFeeToParticipateCurrrentBatchLiquityProps: GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-        troveAddress: troveAddress,
-        userAddress: userAddress,
-        closeBatch: closeBatch
-    }
-    const gasFeeToParticipateCurrrentBatch = await this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
-    const gasFeeToParticipateCurrrentBatchUint256: Uint256 = uint256.bnToUint256(gasFeeToParticipateCurrrentBatch)
-
     let ethApproveCall: Call | undefined;
-    if (!isEnoughtAllowanceEth) {
-        ethApproveCall = {
-            contractAddress: ethAddress,
-            entrypoint: "approve",
-            calldata: [
-                troveAddress,
-                gasFeeToParticipateCurrrentBatchUint256.low,
-                gasFeeToParticipateCurrrentBatchUint256.high
-            ]
+
+    if (!isEnoughAllowanceLusd) {
+        const lusdAddress = getLusdAddress(this.chainId)
+        const buildApproveCallLusdProps: BuildApproveCallProps = {
+            tokenAddress: lusdAddress,
+            spenderAddress: troveAddress,
+            amount: lusdAmount
         }
+        lusdApproveCall = this.buildApproveCall(buildApproveCallLusdProps)
+    }
+
+    if (!isEnoughAllowanceEth) {
+        const ethAddress = getEthAddress(this.chainId)
+        const buildApproveCallEthProps: BuildApproveCallProps = {
+            tokenAddress: ethAddress,
+            spenderAddress: troveAddress,
+            amount: gasRequired
+        }
+        ethApproveCall = this.buildApproveCall(buildApproveCallEthProps)
     }
 
     const buildCallDataApproveRepayLiquityRes: BuildCallDataApproveRepayLiquityRes = {
@@ -85,55 +60,42 @@ export async function buildCallDataApproveRepayLiquity(this: NimboraSDK, props: 
     return (buildCallDataApproveRepayLiquityRes)
 }
 
-
-
-export async function buildCallDataBorrowLiquity(this: NimboraSDK, props: BuildCallDataBorrowLiquityProps): Promise<Call> {
-    const { troveAddress, userAddress, ethAmount, closeBatch } = props
+export function buildCallDataBorrowLiquity(this: NimboraSDK, props: BuildCallDataBorrowLiquityProps): Call {
+    const { troveAddress, ethAmount, gasRequired } = props
     if (!this.checkTrove(troveAddress)) {
         throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
     }
     const ethAmountUint256: Uint256 = uint256.bnToUint256(ethAmount)
-    const getRequiredGasFeeToParticipateCurrrentBatchLiquityProps: GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-        troveAddress: troveAddress,
-        userAddress: userAddress,
-        closeBatch: closeBatch
-    }
-    const gasFeeToParticipateCurrrentBatch = await this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
-    const gasFeeToParticipateCurrrentBatchUint256: Uint256 = uint256.bnToUint256(gasFeeToParticipateCurrrentBatch)
+    const gasRequiredUint256: Uint256 = uint256.bnToUint256(gasRequired)
     const borrowCall: Call = {
         contractAddress: troveAddress,
         entrypoint: "borrow",
         calldata: [
             ethAmountUint256.low,
             ethAmountUint256.high,
-            gasFeeToParticipateCurrrentBatchUint256.low,
-            gasFeeToParticipateCurrrentBatchUint256.high
+            gasRequiredUint256.low,
+            gasRequiredUint256.high
         ]
     }
     return (borrowCall)
 }
 
-export async function buildCallDataRepayLiquity(this: NimboraSDK, props: BuildCallDataRepayLiquityProps): Promise<Call> {
-    const { troveAddress, userAddress, lusdAmount, closeBatch } = props
+
+export function buildCallDataRepayLiquity(this: NimboraSDK, props: BuildCallDataRepayLiquityProps): Call {
+    const { troveAddress, lusdAmount, gasRequired } = props
     if (!this.checkTrove(troveAddress)) {
         throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
     }
     const lusdAmountUint256: Uint256 = uint256.bnToUint256(lusdAmount)
-    const getRequiredGasFeeToParticipateCurrrentBatchLiquityProps: GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps = {
-        troveAddress: troveAddress,
-        userAddress: userAddress,
-        closeBatch: closeBatch
-    }
-    const gasFeeToParticipateCurrrentBatch = await this.getRequiredGasFeeToParticipateCurrrentBatchLiquity(getRequiredGasFeeToParticipateCurrrentBatchLiquityProps)
-    const gasFeeToParticipateCurrrentBatchUint256: Uint256 = uint256.bnToUint256(gasFeeToParticipateCurrrentBatch)
+    const gasRequiredUint256: Uint256 = uint256.bnToUint256(gasRequired)
     const repayCall: Call = {
         contractAddress: troveAddress,
         entrypoint: "borrow",
         calldata: [
             lusdAmountUint256.low,
             lusdAmountUint256.high,
-            gasFeeToParticipateCurrrentBatchUint256.low,
-            gasFeeToParticipateCurrrentBatchUint256.high
+            gasRequiredUint256.low,
+            gasRequiredUint256.high
         ]
     }
     return (repayCall)

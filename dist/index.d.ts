@@ -8,6 +8,8 @@ export declare class NimboraSDK {
     getAllowance: (props: import("./config/types").GetAllowanceProps) => Promise<bigint>;
     getTotalSupply: (tokenAddress: string) => Promise<bigint>;
     getGasPrice: () => Promise<bigint>;
+    buildApproveCall: (props: import("./config/types").BuildApproveCallProps) => import("starknet").Call;
+    estimateInvokeFee: (calls: import("starknet").AllowArray<import("starknet").Call>) => Promise<bigint>;
     getLiquityManagerContract: () => import("starknet").Contract;
     getTokenContract: (tokenAddress: string) => import("starknet").Contract;
     getEthContract: () => import("starknet").Contract;
@@ -36,10 +38,12 @@ export declare class NimboraSDK {
     checkBalanceRepayLiquity: (props: import("./config/types").CheckBalanceRepayLiquityProps) => Promise<import("./config/types").CheckBalanceRepayLiquityRes>;
     checkAllowanceBorrowLiquity: (props: import("./config/types").CheckAllowanceBorrowLiquityProps) => Promise<boolean>;
     checkAllowanceRepayLiquity: (props: import("./config/types").CheckAllowanceRepayLiquityProps) => Promise<import("./config/types").CheckAllowanceRepayLiquityRes>;
-    buildCallDataApproveBorrowLiquity: (props: import("./config/types").BuildCallDataApproveBorrowLiquityProps) => Promise<import("starknet").Call>;
-    buildCallDataApproveRepayLiquity: (props: import("./config/types").BuildCallDataApproveRepayLiquityProps) => Promise<import("./config/types").BuildCallDataApproveRepayLiquityRes>;
-    buildCallDataBorrowLiquity: (props: import("./config/types").BuildCallDataBorrowLiquityProps) => Promise<import("starknet").Call>;
-    buildCallDataRepayLiquity: (props: import("./config/types").BuildCallDataRepayLiquityProps) => Promise<import("starknet").Call>;
-    handleBorrowLiquity: (props: import("./config/types").handleBorrowLiquityProps) => Promise<string>;
-    handleRepayLiquity: (props: import("./config/types").handleRepayLiquityProps) => Promise<string>;
+    buildCallDataApproveBorrowLiquity: (props: import("./config/types").BuildCallDataApproveBorrowLiquityProps) => import("starknet").Call;
+    buildCallDataApproveRepayLiquity: (props: import("./config/types").BuildCallDataApproveRepayLiquityProps) => import("./config/types").BuildCallDataApproveRepayLiquityRes;
+    buildCallDataBorrowLiquity: (props: import("./config/types").BuildCallDataBorrowLiquityProps) => import("starknet").Call;
+    buildCallDataRepayLiquity: (props: import("./config/types").BuildCallDataRepayLiquityProps) => import("starknet").Call;
+    handleBorrowLiquity: (props: import("./config/types").HandleBorrowLiquityProps) => Promise<string>;
+    handleRepayLiquity: (props: import("./config/types").HandleRepayLiquityProps) => Promise<string>;
+    handleBorrowLiquityManual: (props: import("./config/types").HandleBorrowLiquityManualProps) => Promise<string>;
+    handleRepayLiquityManual: (props: import("./config/types").HandleRepayLiquityManualProps) => Promise<string>;
 }
