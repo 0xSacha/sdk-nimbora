@@ -217,7 +217,7 @@ export async function handleRepayLiquityManual(this: NimboraSDK, props: HandleRe
       isEnoughAllowanceEth: !approveEth
     };
     let buildCallDataApproveRepayLiquityRes: BuildCallDataApproveRepayLiquityRes = this.buildCallDataApproveRepayLiquity(buildCallDataApproveRepayLiquityProps);
-    if (buildCallDataApproveRepayLiquityRes.ethApproveCall) {
+    if (buildCallDataApproveRepayLiquityRes.ethApproveCall && gas > 0) {
       callsToExecute.push(buildCallDataApproveRepayLiquityRes.ethApproveCall);
     }
     if (buildCallDataApproveRepayLiquityRes.lusdApproveCall) {

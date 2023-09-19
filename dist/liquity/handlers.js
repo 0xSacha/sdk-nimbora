@@ -273,7 +273,7 @@ function handleRepayLiquityManual(props) {
                             isEnoughAllowanceEth: !approveEth
                         };
                         buildCallDataApproveRepayLiquityRes = this.buildCallDataApproveRepayLiquity(buildCallDataApproveRepayLiquityProps);
-                        if (buildCallDataApproveRepayLiquityRes.ethApproveCall) {
+                        if (buildCallDataApproveRepayLiquityRes.ethApproveCall && gas > 0) {
                             callsToExecute.push(buildCallDataApproveRepayLiquityRes.ethApproveCall);
                         }
                         if (buildCallDataApproveRepayLiquityRes.lusdApproveCall) {

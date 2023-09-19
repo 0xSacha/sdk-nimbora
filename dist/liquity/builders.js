@@ -83,7 +83,7 @@ function buildCallDataRepayLiquity(props) {
     var gasRequiredUint256 = starknet_1.uint256.bnToUint256(gasRequired);
     var repayCall = {
         contractAddress: troveAddress,
-        entrypoint: "borrow",
+        entrypoint: "repay",
         calldata: [
             lusdAmountUint256.low,
             lusdAmountUint256.high,

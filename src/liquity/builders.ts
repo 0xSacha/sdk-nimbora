@@ -90,7 +90,7 @@ export function buildCallDataRepayLiquity(this: NimboraSDK, props: BuildCallData
     const gasRequiredUint256: Uint256 = uint256.bnToUint256(gasRequired)
     const repayCall: Call = {
         contractAddress: troveAddress,
-        entrypoint: "borrow",
+        entrypoint: "repay",
         calldata: [
             lusdAmountUint256.low,
             lusdAmountUint256.high,
