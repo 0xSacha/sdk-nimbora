@@ -22,7 +22,7 @@ export class NimboraSDK {
       this.signer = undefined;
     }
 
-    if (chainId !== constants.StarknetChainId.SN_GOERLI) {
+    if (chainId == constants.StarknetChainId.SN_GOERLI2) {
       throw new ErrorWrapper({ code: ERROR_CODE.UNSUPPORTED_CHAIN_ID });
     } else {
       this.chainId = chainId;

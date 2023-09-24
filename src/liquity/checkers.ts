@@ -10,6 +10,7 @@ import { ErrorWrapper } from "../utils/errorWrapper";
  * @returns True if the Trove exists; otherwise, false.
  */
 export function checkTrove(this: NimboraSDK, troveAddress: string): boolean {
+
     if (getTroveIdByChainIdAndAddress(this.chainId, troveAddress)) {
         return (true)
     }

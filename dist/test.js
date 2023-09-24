@@ -42,20 +42,27 @@ describe('NimboraSDK Integration Tests', function () {
     var sdk;
     var accountSdk;
     var token = "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
-    var ad1 = "0x0259CDc9a9a43ac8Ce627A8341c3687Cc1E6E97b9E6A1A4b80dBC3d6E9ce734b";
+    var ad1 = "0x0259cdc9a9a43ac8ce627a8341c3687cc1e6e97b9e6a1a4b80dbc3d6e9ce734b";
     var ad2 = "0x02fa12e47978C846C5731A3cAa0Cc6e87cA4059993b0d92Fad6C8c47EA77894F";
-    var trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087";
+    // let trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087";
+    // let trove_mainnet = "0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399";
+    var trove = "0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399";
     beforeAll(function () {
         var provider_testnet = new starknet_1.Provider({
             rpc: {
                 nodeUrl: "https://starknet-goerli.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
             }
         });
-        sdk = new _1.NimboraSDK(provider_testnet, starknet_1.constants.StarknetChainId.SN_GOERLI);
-        var accountAddress = "";
-        var accountPk = "";
-        var account = new starknet_1.Account(provider_testnet, accountAddress, accountPk);
-        accountSdk = new _1.NimboraSDK(account, starknet_1.constants.StarknetChainId.SN_GOERLI);
+        var provider_mainnet = new starknet_1.Provider({
+            rpc: {
+                nodeUrl: "https://starknet-mainnet.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
+            }
+        });
+        sdk = new _1.NimboraSDK(provider_mainnet, starknet_1.constants.StarknetChainId.SN_MAIN);
+        // const accountAddress = ""
+        // const accountPk = ""
+        // const account: Account = new Account(provider_testnet, accountAddress, accountPk)
+        // accountSdk = new NimboraSDK(account, constants.StarknetChainId.SN_GOERLI);
     });
     it('balance defined', function () { return __awaiter(void 0, void 0, void 0, function () {
         var balance;
@@ -93,7 +100,7 @@ describe('NimboraSDK Integration Tests', function () {
             }
         });
     }); });
-    it('allowance defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it('gas price defined defined', function () { return __awaiter(void 0, void 0, void 0, function () {
         var gasPrice;
         return __generator(this, function (_a) {
             switch (_a.label) {

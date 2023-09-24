@@ -494,7 +494,9 @@ function getTotalTroveDebtLiquity(troveAddress) {
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
+                    console.log("trove foundddd ");
                     troveContract = this.getTroveContract(troveAddress);
+                    console.log("trove contreze ");
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);

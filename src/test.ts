@@ -6,22 +6,34 @@ describe('NimboraSDK Integration Tests', () => {
     let sdk: NimboraSDK;
     let accountSdk: NimboraSDK;
     let token = "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
-    let ad1 = "0x0259CDc9a9a43ac8Ce627A8341c3687Cc1E6E97b9E6A1A4b80dBC3d6E9ce734b";
+    let ad1 = "0x0259cdc9a9a43ac8ce627a8341c3687cc1e6e97b9e6a1a4b80dbc3d6e9ce734b";
     let ad2 = "0x02fa12e47978C846C5731A3cAa0Cc6e87cA4059993b0d92Fad6C8c47EA77894F";
-    let trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087";
+    // let trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087";
+    // let trove_mainnet = "0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399";
 
+    let trove = "0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399"
     beforeAll(() => {
         const provider_testnet = new Provider({
             rpc: {
                 nodeUrl: "https://starknet-goerli.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
             }
         });
-        sdk = new NimboraSDK(provider_testnet, constants.StarknetChainId.SN_GOERLI);
+        const provider_mainnet = new Provider({
+            rpc: {
+                nodeUrl: "https://starknet-mainnet.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
+            }
+        });
+        sdk = new NimboraSDK(provider_mainnet, constants.StarknetChainId.SN_MAIN);
 
-        const accountAddress = ""
-        const accountPk = ""
-        const account: Account = new Account(provider_testnet, accountAddress, accountPk)
-        accountSdk = new NimboraSDK(account, constants.StarknetChainId.SN_GOERLI);
+
+
+        // const accountAddress = ""
+        // const accountPk = ""
+        // const account: Account = new Account(provider_testnet, accountAddress, accountPk)
+        // accountSdk = new NimboraSDK(account, constants.StarknetChainId.SN_GOERLI);
+
+
+
     });
 
     it('balance defined', async () => {
@@ -39,7 +51,7 @@ describe('NimboraSDK Integration Tests', () => {
         expect(allowance).toBeDefined();
     });
 
-    it('allowance defined', async () => {
+    it('gas price defined defined', async () => {
         const gasPrice = await sdk.getGasPrice();
         expect(gasPrice).toBeDefined();
     });

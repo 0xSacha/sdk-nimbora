@@ -70,7 +70,7 @@ var NimboraSDK = /** @class */ (function () {
         catch (e) {
             this.signer = undefined;
         }
-        if (chainId !== starknet_1.constants.StarknetChainId.SN_GOERLI) {
+        if (chainId == starknet_1.constants.StarknetChainId.SN_GOERLI2) {
             throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.UNSUPPORTED_CHAIN_ID });
         }
         else {

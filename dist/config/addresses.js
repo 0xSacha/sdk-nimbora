@@ -9,14 +9,13 @@ var starknet_1 = require("starknet");
 exports.LUSD_BY_CHAIN_ID = (_a = {},
     // Add descriptions for each chain ID
     _a[starknet_1.constants.StarknetChainId.SN_GOERLI] = '0x025731f5f9629ff74d1c5f787ad1ea0ebb9157210047f6c9e3a974f771550cf4',
-    _a[starknet_1.constants.StarknetChainId.SN_MAIN] = '0x025731f5f9629ff74d1c5f787ad1ea0ebb9157210047f6c9e3a974f771550cf4',
+    _a[starknet_1.constants.StarknetChainId.SN_MAIN] = '0x070a76fd48ca0ef910631754d77dd822147fe98a569b826ec85e3c33fde586ac',
     _a[starknet_1.constants.StarknetChainId.SN_GOERLI2] = '0x025731f5f9629ff74d1c5f787ad1ea0ebb9157210047f6c9e3a974f771550cf4',
     _a);
 /**
  * Mapping of Trove information arrays by Starknet chain ID.
- */
+ */ 0x070a76fd48ca0ef910631754d77dd822147fe98a569b826ec85e3c33fde586ac;
 exports.TROVES_BY_CHAIN_ID = (_b = {},
-    // Add descriptions for each chain ID
     _b[starknet_1.constants.StarknetChainId.SN_GOERLI] = [{
             id: '1',
             address: '0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087'
@@ -28,22 +27,10 @@ exports.TROVES_BY_CHAIN_ID = (_b = {},
     ],
     _b[starknet_1.constants.StarknetChainId.SN_MAIN] = [{
             id: '1',
-            address: '0x6ea2c0991d8be3795466a9a52f81d3a3438f83ef89ebba1588e463de7be1aae'
-        },
-        {
-            id: '2',
-            address: '0x6ea2c0991d8be3795466a9a52f81d3a3438f83ef89ebba1588e463de7be1aae'
-        },
+            address: '0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399'
+        }
     ],
-    _b[starknet_1.constants.StarknetChainId.SN_GOERLI2] = [{
-            id: '1',
-            address: '0x6ea2c0991d8be3795466a9a52f81d3a3438f83ef89ebba1588e463de7be1aae'
-        },
-        {
-            id: '2',
-            address: '0x6ea2c0991d8be3795466a9a52f81d3a3438f83ef89ebba1588e463de7be1aae'
-        },
-    ],
+    _b[starknet_1.constants.StarknetChainId.SN_GOERLI2] = [],
     _b);
 /**
  * Mapping of Liquity Manager addresses by Starknet chain ID.
@@ -60,7 +47,7 @@ exports.LIQUITY_MANAGER_BY_CHAIN_ID = (_c = {},
 exports.ORACLE_BY_CHAIN_ID = (_d = {},
     // Add descriptions for each chain ID
     _d[starknet_1.constants.StarknetChainId.SN_GOERLI] = '0x5dd007c4a506f804c9f3cf3032ac14fa9efa6f1067c7cf20a7ff32351fea268',
-    _d[starknet_1.constants.StarknetChainId.SN_MAIN] = '0x5dd007c4a506f804c9f3cf3032ac14fa9efa6f1067c7cf20a7ff32351fea268',
+    _d[starknet_1.constants.StarknetChainId.SN_MAIN] = '0x4b062835dc8e8249f0e0f54b77aeb2b83ec423d0148fa5d73cc9d49b2171756',
     _d[starknet_1.constants.StarknetChainId.SN_GOERLI2] = '0x5dd007c4a506f804c9f3cf3032ac14fa9efa6f1067c7cf20a7ff32351fea268',
     _d);
 /**
@@ -69,7 +56,7 @@ exports.ORACLE_BY_CHAIN_ID = (_d = {},
 exports.ETH_BY_CHAIN_ID = (_e = {},
     // Add descriptions for each chain ID
     _e[starknet_1.constants.StarknetChainId.SN_GOERLI] = '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
-    _e[starknet_1.constants.StarknetChainId.SN_MAIN] = '',
+    _e[starknet_1.constants.StarknetChainId.SN_MAIN] = '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     _e[starknet_1.constants.StarknetChainId.SN_GOERLI2] = '',
     _e);
 /**
@@ -105,7 +92,14 @@ exports.getLusdAddress = getLusdAddress;
  * @param chainId - The Starknet chain ID.
  * @returns An array of TroveInfo objects.
  */
-var getTrovesByChainId = function (chainId) { return exports.TROVES_BY_CHAIN_ID[chainId]; };
+// export const getTrovesByChainId = (chainId: constants.StarknetChainId): TroveInfo[] => TROVES_BY_CHAIN_ID[chainId];
+var getTrovesByChainId = function (chainId) {
+    var troves = exports.TROVES_BY_CHAIN_ID[chainId];
+    if (!troves) {
+        throw new Error("Trove information not found for chain ID: ".concat(chainId));
+    }
+    return troves;
+};
 exports.getTrovesByChainId = getTrovesByChainId;
 /**
  * Retrieves the Trove ID for a given Starknet chain ID and address.

@@ -307,7 +307,11 @@ export async function getTotalTroveDebtLiquity(this: NimboraSDK, troveAddress: s
   if (!this.checkTrove(troveAddress)) {
     throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
   }
+
+  console.log("trove foundddd ")
   const troveContract = this.getTroveContract(troveAddress)
+  console.log("trove contreze ")
+
   try {
     const l1TotalDebt = await troveContract.get_l1_total_debt();
     return l1TotalDebt;
