@@ -1,5 +1,5 @@
 import { NimboraSDK } from "..";
-import { GetAllowanceLiquityProps, GetAllowanceLiquityRes, GetUserAmountInBatchLiquityProps, GetUserAmountInBatchLiquityRes, GetUsersInBatchLiquityProps, GetUsersInBatchLiquityRes, GetUserGasInBatchLiquityProps, GetUserDebtLiquityProps, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps } from "../config/types";
+import { GetAllowanceLiquityProps, GetAllowanceLiquityRes, GetUserAmountInBatchLiquityProps, GetUserAmountInBatchLiquityRes, GetUsersInBatchLiquityProps, GetUsersInBatchLiquityRes, GetUserGasInBatchLiquityProps, GetUserDebtLiquityProps, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps, GetTimestampClosedBatchProps } from "../config/types";
 /**
  * Retrieves the batch gas unit for a Trove
  * @param this - The NimboraSDK instance.
@@ -99,6 +99,13 @@ export declare function getRemainingGasFeeToCloseBatch(this: NimboraSDK, troveAd
  */
 export declare function getTotalTroveDebtLiquity(this: NimboraSDK, troveAddress: string): Promise<bigint>;
 /**
+ * Retrieves the total trove supply issued by the trove
+ * @param this - The NimboraSDK instance.
+ * @param troveAddress - The address of the Trove.
+ * @returns A promise that resolves to the total Trove supply as a bigint.
+ */
+export declare function getTotalTroveSupplyLiquity(this: NimboraSDK, troveAddress: string): Promise<bigint>;
+/**
  * Retrieves the debt of a specific user in a Trove
  * @param this - The NimboraSDK instance.
  * @param props - The GetUserDebtLiquityProps object containing troveAddress and userAddress.
@@ -111,6 +118,20 @@ export declare function getUserDebtLiquity(this: NimboraSDK, props: GetUserDebtL
  * @returns A promise that resolves to the total supply of LUSD tokens as a bigint.
  */
 export declare function getLUSDTotalSupply(this: NimboraSDK): Promise<bigint>;
+/**
+ * Retrieves the timestamp when a batch has been launched
+ * @param this - The NimboraSDK instance.
+ * @param props - contain trove adddress and nonce
+ * @returns A promise that resolves the batch timestamp when launched as a bigint.
+ */
+export declare function getTimestampClosedBatchLiquity(this: NimboraSDK, props: GetTimestampClosedBatchProps): Promise<bigint>;
+/**
+ * Retrieves the timestamp when a batch has been launched
+ * @param this - The NimboraSDK instance.
+ * @param troveAddress - trove address
+ * @returns A promise that retuns a boolean  when launched as a bigint.
+ */
+export declare function isRedistributionLiquity(this: NimboraSDK, troveAddress: string): Promise<boolean>;
 /**
  * Calculates the required gas fee to participate in the current batch in Liquity.
  * @param this - The NimboraSDK instance.

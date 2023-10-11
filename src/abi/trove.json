@@ -210,6 +210,22 @@
       },
       {
         "type": "function",
+        "name": "get_timestamp_closed_batch",
+        "inputs": [
+          {
+            "name": "nonce",
+            "type": "core::integer::u256"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::integer::u64"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
         "name": "set_relayer",
         "inputs": [
           {

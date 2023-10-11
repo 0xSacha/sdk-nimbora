@@ -46,19 +46,19 @@ describe('NimboraSDK Integration Tests', function () {
     var ad2 = "0x02fa12e47978C846C5731A3cAa0Cc6e87cA4059993b0d92Fad6C8c47EA77894F";
     // let trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087";
     // let trove_mainnet = "0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399";
-    var trove = "0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399";
+    var trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087";
     beforeAll(function () {
         var provider_testnet = new starknet_1.Provider({
             rpc: {
                 nodeUrl: "https://starknet-goerli.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
             }
         });
-        var provider_mainnet = new starknet_1.Provider({
-            rpc: {
-                nodeUrl: "https://starknet-mainnet.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
-            }
-        });
-        sdk = new _1.NimboraSDK(provider_mainnet, starknet_1.constants.StarknetChainId.SN_MAIN);
+        // const provider_mainnet = new Provider({
+        //     rpc: {
+        //         nodeUrl: "https://starknet-mainnet.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
+        //     }
+        // });
+        sdk = new _1.NimboraSDK(provider_testnet, starknet_1.constants.StarknetChainId.SN_GOERLI);
         // const accountAddress = ""
         // const accountPk = ""
         // const account: Account = new Account(provider_testnet, accountAddress, accountPk)
@@ -330,6 +330,42 @@ describe('NimboraSDK Integration Tests', function () {
             ethContract = sdk.getEthContract();
             expect(ethContract.address).toBeDefined();
             return [2 /*return*/];
+        });
+    }); });
+    it('getTimestampClosedBatchLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var ts;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getTimestampClosedBatchLiquity({ troveAddress: trove, batchNonce: 8 })];
+                case 1:
+                    ts = _a.sent();
+                    expect(ts).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('getTotalTroveSupplyLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var tsupply;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.getTotalTroveSupplyLiquity(trove)];
+                case 1:
+                    tsupply = _a.sent();
+                    expect(tsupply).toBeDefined();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('isRedistributionLiquity defined', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var isRedistribution;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sdk.isRedistributionLiquity(trove)];
+                case 1:
+                    isRedistribution = _a.sent();
+                    expect(isRedistribution).toBeDefined();
+                    return [2 /*return*/];
+            }
         });
     }); });
     // it('Get borrow invoke fees defined', async () => {

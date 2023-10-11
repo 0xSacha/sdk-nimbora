@@ -1,5 +1,5 @@
 import { NimboraSDK } from "..";
-import { ERROR_CODE, GetAllowanceLiquityProps, GetAllowanceLiquityRes, GetAllowanceProps, GetUserAmountInBatchLiquityProps, GetUserAmountInBatchLiquityRes, GetUsersInBatchLiquityProps, GetUsersInBatchLiquityRes, GetUserGasInBatchLiquityProps, GetUserDebtLiquityProps, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps } from "../config/types";
+import { ERROR_CODE, GetAllowanceLiquityProps, GetAllowanceLiquityRes, GetAllowanceProps, GetUserAmountInBatchLiquityProps, GetUserAmountInBatchLiquityRes, GetUsersInBatchLiquityProps, GetUsersInBatchLiquityRes, GetUserGasInBatchLiquityProps, GetUserDebtLiquityProps, GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps, GetTimestampClosedBatchProps } from "../config/types";
 import { ErrorWrapper } from '../utils/errorWrapper';
 import { uint256 } from "starknet";
 import { getEthAddress, getLusdAddress } from "../config/addresses";
@@ -308,13 +308,31 @@ export async function getTotalTroveDebtLiquity(this: NimboraSDK, troveAddress: s
     throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
   }
 
-  console.log("trove foundddd ")
   const troveContract = this.getTroveContract(troveAddress)
-  console.log("trove contreze ")
 
   try {
     const l1TotalDebt = await troveContract.get_l1_total_debt();
     return l1TotalDebt;
+  } catch (e) {
+    throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
+  }
+}
+
+
+/**
+ * Retrieves the total trove supply issued by the trove
+ * @param this - The NimboraSDK instance.
+ * @param troveAddress - The address of the Trove.
+ * @returns A promise that resolves to the total Trove supply as a bigint.
+ */
+export async function getTotalTroveSupplyLiquity(this: NimboraSDK, troveAddress: string): Promise<bigint> {
+  if (!this.checkTrove(troveAddress)) {
+    throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
+  }
+  const troveContract = this.getTroveContract(troveAddress)
+  try {
+    const l1TotalSupply = await troveContract.get_l1_total_supply();
+    return l1TotalSupply;
   } catch (e) {
     throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
   }
@@ -352,6 +370,48 @@ export async function getLUSDTotalSupply(this: NimboraSDK): Promise<bigint> {
   const lusdTotalSupply = this.getTotalSupply(lusdAddress)
   return lusdTotalSupply
 }
+
+
+/**
+ * Retrieves the timestamp when a batch has been launched
+ * @param this - The NimboraSDK instance.
+ * @param props - contain trove adddress and nonce
+ * @returns A promise that resolves the batch timestamp when launched as a bigint.
+ */
+export async function getTimestampClosedBatchLiquity(this: NimboraSDK, props: GetTimestampClosedBatchProps): Promise<bigint> {
+  const { troveAddress, batchNonce } = props
+
+  if (!this.checkTrove(troveAddress)) {
+    throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
+  }
+  const troveContract = this.getTroveContract(troveAddress)
+
+  try {
+    const timestampClosedBatch = await troveContract.get_timestamp_closed_batch(batchNonce);
+    return timestampClosedBatch;
+  } catch (e) {
+    throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
+  }
+}
+
+
+/**
+ * Retrieves the timestamp when a batch has been launched
+ * @param this - The NimboraSDK instance.
+ * @param troveAddress - trove address
+ * @returns A promise that retuns a boolean  when launched as a bigint.
+ */
+export async function isRedistributionLiquity(this: NimboraSDK, troveAddress: string): Promise<boolean> {
+  try {
+    const troveTotalDebt = await this.getTotalTroveDebtLiquity(troveAddress)
+    const troveTotalSupply = await this.getTotalTroveSupplyLiquity(troveAddress)
+    return (troveTotalDebt !== troveTotalSupply);
+  } catch (e) {
+    throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_CALL, error: e });
+  }
+}
+
+
 
 
 /**

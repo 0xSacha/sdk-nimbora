@@ -11,19 +11,19 @@ describe('NimboraSDK Integration Tests', () => {
     // let trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087";
     // let trove_mainnet = "0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399";
 
-    let trove = "0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399"
+    let trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087"
     beforeAll(() => {
         const provider_testnet = new Provider({
             rpc: {
                 nodeUrl: "https://starknet-goerli.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
             }
         });
-        const provider_mainnet = new Provider({
-            rpc: {
-                nodeUrl: "https://starknet-mainnet.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
-            }
-        });
-        sdk = new NimboraSDK(provider_mainnet, constants.StarknetChainId.SN_MAIN);
+        // const provider_mainnet = new Provider({
+        //     rpc: {
+        //         nodeUrl: "https://starknet-mainnet.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
+        //     }
+        // });
+        sdk = new NimboraSDK(provider_testnet, constants.StarknetChainId.SN_GOERLI);
 
 
 
@@ -151,6 +151,22 @@ describe('NimboraSDK Integration Tests', () => {
         const ethContract = sdk.getEthContract();
         expect(ethContract.address).toBeDefined();
     });
+
+    it('getTimestampClosedBatchLiquity defined', async () => {
+        const ts = await sdk.getTimestampClosedBatchLiquity({ troveAddress: trove, batchNonce: 8 });
+        expect(ts).toBeDefined();
+    });
+
+    it('getTotalTroveSupplyLiquity defined', async () => {
+        const tsupply = await sdk.getTotalTroveSupplyLiquity(trove);
+        expect(tsupply).toBeDefined();
+    });
+
+    it('isRedistributionLiquity defined', async () => {
+        const isRedistribution = await sdk.isRedistributionLiquity(trove);
+        expect(isRedistribution).toBeDefined();
+    });
+
 
     // it('Get borrow invoke fees defined', async () => {
     //     let callsToExecute: Call[] = [];

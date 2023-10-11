@@ -81,6 +81,12 @@ export type GetUserGasInBatchLiquityProps = {
   userAddress: string
 };
 
+export type GetTimestampClosedBatchProps = {
+  troveAddress: string,
+  batchNonce: number,
+};
+
+
 export type GetUserDebtLiquityProps = {
   troveAddress: string,
   userAddress: string

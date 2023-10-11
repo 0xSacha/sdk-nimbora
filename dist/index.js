@@ -44,6 +44,9 @@ var NimboraSDK = /** @class */ (function () {
         this.getUserDebtLiquity = liquity_1.getUserDebtLiquity.bind(this);
         this.getLUSDTotalSupply = liquity_1.getLUSDTotalSupply.bind(this);
         this.getRequiredGasFeeToParticipateCurrrentBatchLiquity = liquity_1.getRequiredGasFeeToParticipateCurrrentBatchLiquity.bind(this);
+        this.getTimestampClosedBatchLiquity = liquity_1.getTimestampClosedBatchLiquity.bind(this);
+        this.getTotalTroveSupplyLiquity = liquity_1.getTotalTroveSupplyLiquity.bind(this);
+        this.isRedistributionLiquity = liquity_1.isRedistributionLiquity.bind(this);
         // Checkers
         this.checkTrove = liquity_1.checkTrove.bind(this);
         this.checkBalanceBorrowLiquity = liquity_1.checkBalanceBorrowLiquity.bind(this);

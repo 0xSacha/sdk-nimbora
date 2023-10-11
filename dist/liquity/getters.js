@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRequiredGasFeeToParticipateCurrrentBatchLiquity = exports.getLUSDTotalSupply = exports.getUserDebtLiquity = exports.getTotalTroveDebtLiquity = exports.getRemainingGasFeeToCloseBatch = exports.getTotalRequiredGasFeeToCloseBatchLiquity = exports.getNumberOfUsersToCloseBatchLiquity = exports.getUserGasInBatchLiquity = exports.getUserAmountInBatchLiquity = exports.getUsersInBatchLiquity = exports.getLastHandledBatchNonceLiquity = exports.getBatchCounterLiquity = exports.getAllowanceLiquity = exports.getGasTankLiquity = exports.getBatchGasFeePerUserLiquity = exports.getBatchGasUnitPerUserLiquity = exports.getBatchGasUnitLiquity = void 0;
+exports.getRequiredGasFeeToParticipateCurrrentBatchLiquity = exports.isRedistributionLiquity = exports.getTimestampClosedBatchLiquity = exports.getLUSDTotalSupply = exports.getUserDebtLiquity = exports.getTotalTroveSupplyLiquity = exports.getTotalTroveDebtLiquity = exports.getRemainingGasFeeToCloseBatch = exports.getTotalRequiredGasFeeToCloseBatchLiquity = exports.getNumberOfUsersToCloseBatchLiquity = exports.getUserGasInBatchLiquity = exports.getUserAmountInBatchLiquity = exports.getUsersInBatchLiquity = exports.getLastHandledBatchNonceLiquity = exports.getBatchCounterLiquity = exports.getAllowanceLiquity = exports.getGasTankLiquity = exports.getBatchGasFeePerUserLiquity = exports.getBatchGasUnitPerUserLiquity = exports.getBatchGasUnitLiquity = void 0;
 var types_1 = require("../config/types");
 var errorWrapper_1 = require("../utils/errorWrapper");
 var starknet_1 = require("starknet");
@@ -494,9 +494,7 @@ function getTotalTroveDebtLiquity(troveAddress) {
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
-                    console.log("trove foundddd ");
                     troveContract = this.getTroveContract(troveAddress);
-                    console.log("trove contreze ");
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
@@ -514,6 +512,38 @@ function getTotalTroveDebtLiquity(troveAddress) {
 }
 exports.getTotalTroveDebtLiquity = getTotalTroveDebtLiquity;
 /**
+ * Retrieves the total trove supply issued by the trove
+ * @param this - The NimboraSDK instance.
+ * @param troveAddress - The address of the Trove.
+ * @returns A promise that resolves to the total Trove supply as a bigint.
+ */
+function getTotalTroveSupplyLiquity(troveAddress) {
+    return __awaiter(this, void 0, void 0, function () {
+        var troveContract, l1TotalSupply, e_12;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (!this.checkTrove(troveAddress)) {
+                        throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
+                    }
+                    troveContract = this.getTroveContract(troveAddress);
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, troveContract.get_l1_total_supply()];
+                case 2:
+                    l1TotalSupply = _a.sent();
+                    return [2 /*return*/, l1TotalSupply];
+                case 3:
+                    e_12 = _a.sent();
+                    throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_12 });
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getTotalTroveSupplyLiquity = getTotalTroveSupplyLiquity;
+/**
  * Retrieves the debt of a specific user in a Trove
  * @param this - The NimboraSDK instance.
  * @param props - The GetUserDebtLiquityProps object containing troveAddress and userAddress.
@@ -521,7 +551,7 @@ exports.getTotalTroveDebtLiquity = getTotalTroveDebtLiquity;
  */
 function getUserDebtLiquity(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, userAddress, troveContract, userDebt, e_12;
+        var troveAddress, userAddress, troveContract, userDebt, e_13;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -538,8 +568,8 @@ function getUserDebtLiquity(props) {
                     userDebt = _a.sent();
                     return [2 /*return*/, userDebt];
                 case 3:
-                    e_12 = _a.sent();
-                    throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_12 });
+                    e_13 = _a.sent();
+                    throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_13 });
                 case 4: return [2 /*return*/];
             }
         });
@@ -562,6 +592,68 @@ function getLUSDTotalSupply() {
     });
 }
 exports.getLUSDTotalSupply = getLUSDTotalSupply;
+/**
+ * Retrieves the timestamp when a batch has been launched
+ * @param this - The NimboraSDK instance.
+ * @param props - contain trove adddress and nonce
+ * @returns A promise that resolves the batch timestamp when launched as a bigint.
+ */
+function getTimestampClosedBatchLiquity(props) {
+    return __awaiter(this, void 0, void 0, function () {
+        var troveAddress, batchNonce, troveContract, timestampClosedBatch, e_14;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    troveAddress = props.troveAddress, batchNonce = props.batchNonce;
+                    if (!this.checkTrove(troveAddress)) {
+                        throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
+                    }
+                    troveContract = this.getTroveContract(troveAddress);
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, troveContract.get_timestamp_closed_batch(batchNonce)];
+                case 2:
+                    timestampClosedBatch = _a.sent();
+                    return [2 /*return*/, timestampClosedBatch];
+                case 3:
+                    e_14 = _a.sent();
+                    throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_14 });
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getTimestampClosedBatchLiquity = getTimestampClosedBatchLiquity;
+/**
+ * Retrieves the timestamp when a batch has been launched
+ * @param this - The NimboraSDK instance.
+ * @param troveAddress - trove address
+ * @returns A promise that retuns a boolean  when launched as a bigint.
+ */
+function isRedistributionLiquity(troveAddress) {
+    return __awaiter(this, void 0, void 0, function () {
+        var troveTotalDebt, troveTotalSupply, e_15;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, this.getTotalTroveDebtLiquity(troveAddress)];
+                case 1:
+                    troveTotalDebt = _a.sent();
+                    return [4 /*yield*/, this.getTotalTroveSupplyLiquity(troveAddress)];
+                case 2:
+                    troveTotalSupply = _a.sent();
+                    return [2 /*return*/, (troveTotalDebt !== troveTotalSupply)];
+                case 3:
+                    e_15 = _a.sent();
+                    throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_CALL, error: e_15 });
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.isRedistributionLiquity = isRedistributionLiquity;
 /**
  * Calculates the required gas fee to participate in the current batch in Liquity.
  * @param this - The NimboraSDK instance.

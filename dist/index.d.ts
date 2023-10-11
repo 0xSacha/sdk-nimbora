@@ -33,6 +33,9 @@ export declare class NimboraSDK {
     getUserDebtLiquity: (props: import("./config/types").GetUserDebtLiquityProps) => Promise<bigint>;
     getLUSDTotalSupply: () => Promise<bigint>;
     getRequiredGasFeeToParticipateCurrrentBatchLiquity: (props: import("./config/types").GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps) => Promise<bigint>;
+    getTimestampClosedBatchLiquity: (props: import("./config/types").GetTimestampClosedBatchProps) => Promise<bigint>;
+    getTotalTroveSupplyLiquity: (troveAddress: string) => Promise<bigint>;
+    isRedistributionLiquity: (troveAddress: string) => Promise<boolean>;
     checkTrove: (troveAddress: string) => boolean;
     checkBalanceBorrowLiquity: (props: import("./config/types").CheckBalanceBorrowLiquityProps) => Promise<boolean>;
     checkBalanceRepayLiquity: (props: import("./config/types").CheckBalanceRepayLiquityProps) => Promise<import("./config/types").CheckBalanceRepayLiquityRes>;
