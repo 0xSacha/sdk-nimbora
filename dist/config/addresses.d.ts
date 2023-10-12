@@ -6,6 +6,9 @@ import { TroveInfo } from './types';
 export declare const LUSD_BY_CHAIN_ID: {
     [key in constants.StarknetChainId]: string;
 };
+/**
+ * Mapping of Trove information arrays by Starknet chain ID.
+ */
 export declare const TROVES_BY_CHAIN_ID: {
     [key in constants.StarknetChainId]: TroveInfo[];
 };

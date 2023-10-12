@@ -14,7 +14,7 @@ exports.LUSD_BY_CHAIN_ID = (_a = {},
     _a);
 /**
  * Mapping of Trove information arrays by Starknet chain ID.
- */ 0x070a76fd48ca0ef910631754d77dd822147fe98a569b826ec85e3c33fde586ac;
+ */
 exports.TROVES_BY_CHAIN_ID = (_b = {},
     _b[starknet_1.constants.StarknetChainId.SN_GOERLI] = [{
             id: '1',
@@ -24,6 +24,10 @@ exports.TROVES_BY_CHAIN_ID = (_b = {},
             id: '2',
             address: '0x04dd6b946dd8fea888c92c514106bd5c45db017c631c28d34d87f091dc8a2f38'
         },
+        {
+            id: '3',
+            address: '0x03b3e6f26fa0b0e932a356d5394d3bc43b098962bf7982f4204350c561aada2f'
+        }
     ],
     _b[starknet_1.constants.StarknetChainId.SN_MAIN] = [{
             id: '1',
