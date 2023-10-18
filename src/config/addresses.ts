@@ -22,22 +22,25 @@ export const TROVES_BY_CHAIN_ID: {
 } = {
   [constants.StarknetChainId.SN_GOERLI]: [{
     id: '1',
-    address: '0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087'
+    address: '0x03b3e6f26fa0b0e932a356d5394d3bc43b098962bf7982f4204350c561aada2f'
   },
   {
     id: '2',
-    address: '0x04dd6b946dd8fea888c92c514106bd5c45db017c631c28d34d87f091dc8a2f38'
-  },
-  {
-    id: '3',
-    address: '0x03b3e6f26fa0b0e932a356d5394d3bc43b098962bf7982f4204350c561aada2f'
+    address: '0x043acb79a8436b35d98a9231be51ee69e7aaea6e0feb3eaf186ef0d3ba4d8c7f'
   }
   ],
 
   [constants.StarknetChainId.SN_MAIN]: [{
     id: '1',
     address: '0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399'
+  },
+  {
+    id: '2',
+    address: '0x02a67288e48a8c4e2881aee422da7841fc11fef195e0a81f929871c77f07509d'
   }
+
+
+
   ],
   [constants.StarknetChainId.SN_GOERLI2]: [],
 };
