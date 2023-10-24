@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleRepayLiquityManual = exports.handleRepayLiquity = exports.handleBorrowLiquityManual = exports.handleBorrowLiquity = void 0;
+exports.handleBatchLiquityManual = exports.handleRepayLiquityManual = exports.handleRepayLiquity = exports.handleBorrowLiquityManual = exports.handleBorrowLiquity = void 0;
 var types_1 = require("../config/types");
 var errorWrapper_1 = require("../utils/errorWrapper");
 function handleBorrowLiquity(props) {
@@ -118,11 +118,11 @@ function handleBorrowLiquity(props) {
 exports.handleBorrowLiquity = handleBorrowLiquity;
 function handleBorrowLiquityManual(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, ethAmount, gas, _a, approveEth, _b, referral, callsToExecute, buildCallDataApproveBorrowLiquityProps, ethApproveCall, buildCallDataBorrowLiquityProps, borrowCall, tx, e_2;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var troveAddress, ethAmount, gas, _a, approveEth, _b, includesBatch, _c, referral, callsToExecute, buildCallDataApproveBorrowLiquityProps, ethApproveCall, buildCallDataBorrowLiquityProps, borrowCall, batchCall, tx, e_2;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
-                    troveAddress = props.troveAddress, ethAmount = props.ethAmount, gas = props.gas, _a = props.approveEth, approveEth = _a === void 0 ? true : _a, _b = props.referral, referral = _b === void 0 ? "none" : _b;
+                    troveAddress = props.troveAddress, ethAmount = props.ethAmount, gas = props.gas, _a = props.approveEth, approveEth = _a === void 0 ? true : _a, _b = props.includesBatch, includesBatch = _b === void 0 ? false : _b, _c = props.referral, referral = _c === void 0 ? "none" : _c;
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
@@ -143,19 +143,23 @@ function handleBorrowLiquityManual(props) {
                     buildCallDataBorrowLiquityProps = {
                         troveAddress: troveAddress,
                         ethAmount: ethAmount,
-                        gasRequired: gas
+                        gasRequired: includesBatch ? BigInt(0) : gas
                     };
                     borrowCall = this.buildCallDataBorrowLiquity(buildCallDataBorrowLiquityProps);
                     callsToExecute.push(borrowCall);
-                    _c.label = 1;
+                    if (includesBatch == true) {
+                        batchCall = this.buildCallDataBatchLiquity(troveAddress);
+                        callsToExecute.push(batchCall);
+                    }
+                    _d.label = 1;
                 case 1:
-                    _c.trys.push([1, 3, , 4]);
+                    _d.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, this.provider.execute(callsToExecute)];
                 case 2:
-                    tx = _c.sent();
+                    tx = _d.sent();
                     return [2 /*return*/, tx.transaction_hash];
                 case 3:
-                    e_2 = _c.sent();
+                    e_2 = _d.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_TRANSACTION, error: e_2 });
                 case 4: return [2 /*return*/];
             }
@@ -251,11 +255,11 @@ function handleRepayLiquity(props) {
 exports.handleRepayLiquity = handleRepayLiquity;
 function handleRepayLiquityManual(props) {
     return __awaiter(this, void 0, void 0, function () {
-        var troveAddress, lusdAmount, gas, _a, approveLusd, _b, approveEth, _c, referral, callsToExecute, buildCallDataApproveRepayLiquityProps, buildCallDataApproveRepayLiquityRes, buildCallDataBorrowLiquityProps, repayCall, tx, e_4;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var troveAddress, lusdAmount, gas, _a, approveLusd, _b, approveEth, _c, includesBatch, _d, referral, callsToExecute, buildCallDataApproveRepayLiquityProps, buildCallDataApproveRepayLiquityRes, buildCallDataBorrowLiquityProps, repayCall, batchCall, tx, e_4;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
                 case 0:
-                    troveAddress = props.troveAddress, lusdAmount = props.lusdAmount, gas = props.gas, _a = props.approveLusd, approveLusd = _a === void 0 ? true : _a, _b = props.approveEth, approveEth = _b === void 0 ? true : _b, _c = props.referral, referral = _c === void 0 ? "none" : _c;
+                    troveAddress = props.troveAddress, lusdAmount = props.lusdAmount, gas = props.gas, _a = props.approveLusd, approveLusd = _a === void 0 ? true : _a, _b = props.approveEth, approveEth = _b === void 0 ? true : _b, _c = props.includesBatch, includesBatch = _c === void 0 ? false : _c, _d = props.referral, referral = _d === void 0 ? "none" : _d;
                     if (!this.checkTrove(troveAddress)) {
                         throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
                     }
@@ -283,19 +287,23 @@ function handleRepayLiquityManual(props) {
                     buildCallDataBorrowLiquityProps = {
                         troveAddress: troveAddress,
                         lusdAmount: lusdAmount,
-                        gasRequired: gas
+                        gasRequired: includesBatch ? BigInt(0) : gas
                     };
                     repayCall = this.buildCallDataRepayLiquity(buildCallDataBorrowLiquityProps);
                     callsToExecute.push(repayCall);
-                    _d.label = 1;
+                    if (includesBatch == true) {
+                        batchCall = this.buildCallDataBatchLiquity(troveAddress);
+                        callsToExecute.push(batchCall);
+                    }
+                    _e.label = 1;
                 case 1:
-                    _d.trys.push([1, 3, , 4]);
+                    _e.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, this.provider.execute(callsToExecute)];
                 case 2:
-                    tx = _d.sent();
+                    tx = _e.sent();
                     return [2 /*return*/, tx.transaction_hash];
                 case 3:
-                    e_4 = _d.sent();
+                    e_4 = _e.sent();
                     throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_TRANSACTION, error: e_4 });
                 case 4: return [2 /*return*/];
             }
@@ -303,3 +311,43 @@ function handleRepayLiquityManual(props) {
     });
 }
 exports.handleRepayLiquityManual = handleRepayLiquityManual;
+function handleBatchLiquityManual(props) {
+    return __awaiter(this, void 0, void 0, function () {
+        var troveAddress, gas, _a, approveEth, _b, referral, callsToExecute, buildCallDataApproveBorrowLiquityProps, ethApproveCall, batchCall, tx, e_5;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    troveAddress = props.troveAddress, gas = props.gas, _a = props.approveEth, approveEth = _a === void 0 ? true : _a, _b = props.referral, referral = _b === void 0 ? "none" : _b;
+                    if (!this.checkTrove(troveAddress)) {
+                        throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
+                    }
+                    if (!this.signer)
+                        throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.PROVIDER_REQUIRED });
+                    callsToExecute = [];
+                    if (approveEth) {
+                        buildCallDataApproveBorrowLiquityProps = {
+                            troveAddress: troveAddress,
+                            ethAmount: BigInt(0),
+                            gasRequired: gas
+                        };
+                        ethApproveCall = this.buildCallDataApproveBorrowLiquity(buildCallDataApproveBorrowLiquityProps);
+                        callsToExecute.push(ethApproveCall);
+                    }
+                    batchCall = this.buildCallDataBatchLiquity(troveAddress);
+                    callsToExecute.push(batchCall);
+                    _c.label = 1;
+                case 1:
+                    _c.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, this.provider.execute(callsToExecute)];
+                case 2:
+                    tx = _c.sent();
+                    return [2 /*return*/, tx.transaction_hash];
+                case 3:
+                    e_5 = _c.sent();
+                    throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.CANNOT_EXECUTE_TRANSACTION, error: e_5 });
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.handleBatchLiquityManual = handleBatchLiquityManual;

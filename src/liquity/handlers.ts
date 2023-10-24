@@ -12,6 +12,7 @@ import {
   CheckBalanceRepayLiquityProps,
   ERROR_CODE,
   GetRequiredGasFeeToParticipateCurrrentBatchLiquityProps,
+  HandleBatchLiquityManualProps,
   HandleBorrowLiquityManualProps,
   HandleBorrowLiquityProps,
   HandleRepayLiquityManualProps,
@@ -85,7 +86,7 @@ export async function handleBorrowLiquity(this: NimboraSDK, props: HandleBorrowL
 }
 
 export async function handleBorrowLiquityManual(this: NimboraSDK, props: HandleBorrowLiquityManualProps) {
-  const { troveAddress, ethAmount, gas, approveEth = true, referral = "none" } = props;
+  const { troveAddress, ethAmount, gas, approveEth = true, includesBatch = false, referral = "none" } = props;
   if (!this.checkTrove(troveAddress)) {
     throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
   }
@@ -102,13 +103,21 @@ export async function handleBorrowLiquityManual(this: NimboraSDK, props: HandleB
     let ethApproveCall = this.buildCallDataApproveBorrowLiquity(buildCallDataApproveBorrowLiquityProps);
     callsToExecute.push(ethApproveCall);
   }
+
+
   let buildCallDataBorrowLiquityProps: BuildCallDataBorrowLiquityProps = {
     troveAddress: troveAddress,
     ethAmount: ethAmount,
-    gasRequired: gas
+    gasRequired: includesBatch ? BigInt(0) : gas
   };
+
   let borrowCall = this.buildCallDataBorrowLiquity(buildCallDataBorrowLiquityProps);
   callsToExecute.push(borrowCall);
+
+  if (includesBatch == true) {
+    let batchCall = this.buildCallDataBatchLiquity(troveAddress)
+    callsToExecute.push(batchCall);
+  }
 
   try {
     const tx = await (this.provider as Account).execute(callsToExecute);
@@ -200,7 +209,7 @@ export async function handleRepayLiquity(this: NimboraSDK, props: HandleRepayLiq
 
 
 export async function handleRepayLiquityManual(this: NimboraSDK, props: HandleRepayLiquityManualProps) {
-  const { troveAddress, lusdAmount, gas, approveLusd = true, approveEth = true, referral = "none" } = props;
+  const { troveAddress, lusdAmount, gas, approveLusd = true, approveEth = true, includesBatch = false, referral = "none" } = props;
   if (!this.checkTrove(troveAddress)) {
     throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
   }
@@ -227,11 +236,50 @@ export async function handleRepayLiquityManual(this: NimboraSDK, props: HandleRe
   let buildCallDataBorrowLiquityProps: BuildCallDataRepayLiquityProps = {
     troveAddress: troveAddress,
     lusdAmount: lusdAmount,
-    gasRequired: gas
+    gasRequired: includesBatch ? BigInt(0) : gas
   };
 
   let repayCall = this.buildCallDataRepayLiquity(buildCallDataBorrowLiquityProps);
   callsToExecute.push(repayCall);
+
+  if (includesBatch == true) {
+    let batchCall = this.buildCallDataBatchLiquity(troveAddress)
+    callsToExecute.push(batchCall);
+  }
+
+  try {
+    const tx = await (this.provider as Account).execute(callsToExecute);
+    return tx.transaction_hash;
+  } catch (e) {
+    throw new ErrorWrapper({ code: ERROR_CODE.CANNOT_EXECUTE_TRANSACTION, error: e });
+  }
+}
+
+
+
+
+export async function handleBatchLiquityManual(this: NimboraSDK, props: HandleBatchLiquityManualProps) {
+  const { troveAddress, gas, approveEth = true, referral = "none" } = props;
+  if (!this.checkTrove(troveAddress)) {
+    throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
+  }
+  if (!this.signer) throw new ErrorWrapper({ code: ERROR_CODE.PROVIDER_REQUIRED });
+
+  let callsToExecute: Call[] = [];
+
+  if (approveEth) {
+    let buildCallDataApproveBorrowLiquityProps: BuildCallDataApproveBorrowLiquityProps = {
+      troveAddress: troveAddress,
+      ethAmount: BigInt(0),
+      gasRequired: gas
+    };
+    let ethApproveCall = this.buildCallDataApproveBorrowLiquity(buildCallDataApproveBorrowLiquityProps);
+    callsToExecute.push(ethApproveCall);
+  }
+
+  let batchCall = this.buildCallDataBatchLiquity(troveAddress)
+  callsToExecute.push(batchCall);
+
   try {
     const tx = await (this.provider as Account).execute(callsToExecute);
     return tx.transaction_hash;

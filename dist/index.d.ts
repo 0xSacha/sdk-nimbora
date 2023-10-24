@@ -45,8 +45,10 @@ export declare class NimboraSDK {
     buildCallDataApproveRepayLiquity: (props: import("./config/types").BuildCallDataApproveRepayLiquityProps) => import("./config/types").BuildCallDataApproveRepayLiquityRes;
     buildCallDataBorrowLiquity: (props: import("./config/types").BuildCallDataBorrowLiquityProps) => import("starknet").Call;
     buildCallDataRepayLiquity: (props: import("./config/types").BuildCallDataRepayLiquityProps) => import("starknet").Call;
+    buildCallDataBatchLiquity: (troveAddress: string) => import("starknet").Call;
     handleBorrowLiquity: (props: import("./config/types").HandleBorrowLiquityProps) => Promise<string>;
     handleRepayLiquity: (props: import("./config/types").HandleRepayLiquityProps) => Promise<string>;
     handleBorrowLiquityManual: (props: import("./config/types").HandleBorrowLiquityManualProps) => Promise<string>;
     handleRepayLiquityManual: (props: import("./config/types").HandleRepayLiquityManualProps) => Promise<string>;
+    handleBatchLiquityManual: (props: import("./config/types").HandleBatchLiquityManualProps) => Promise<string>;
 }

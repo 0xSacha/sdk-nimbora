@@ -1,7 +1,7 @@
 import { constants, Account, Provider, SignerInterface } from 'starknet';
 import { ERROR_CODE } from './config/types';
 import { getEthContract, getTokenContract, getLiquityManagerContract, getTroveContract, getLusdContract, getOracleContract } from './config/contracts';
-import { getBatchGasUnitLiquity, getBatchGasUnitPerUserLiquity, getBatchGasFeePerUserLiquity, getGasTankLiquity, getAllowanceLiquity, getBatchCounterLiquity, getLastHandledBatchNonceLiquity, getUsersInBatchLiquity, getUserAmountInBatchLiquity, getUserGasInBatchLiquity, getNumberOfUsersToCloseBatchLiquity, getTotalRequiredGasFeeToCloseBatchLiquity, getRemainingGasFeeToCloseBatch, getTotalTroveDebtLiquity, getUserDebtLiquity, getLUSDTotalSupply, getRequiredGasFeeToParticipateCurrrentBatchLiquity, checkAllowanceBorrowLiquity, checkAllowanceRepayLiquity, checkBalanceBorrowLiquity, checkTrove, buildCallDataApproveBorrowLiquity, buildCallDataApproveRepayLiquity, buildCallDataBorrowLiquity, buildCallDataRepayLiquity, checkBalanceRepayLiquity, handleBorrowLiquity, handleRepayLiquity, handleBorrowLiquityManual, handleRepayLiquityManual, getTimestampClosedBatchLiquity, getTotalTroveSupplyLiquity, isRedistributionLiquity } from './liquity';
+import { getBatchGasUnitLiquity, getBatchGasUnitPerUserLiquity, getBatchGasFeePerUserLiquity, getGasTankLiquity, getAllowanceLiquity, getBatchCounterLiquity, getLastHandledBatchNonceLiquity, getUsersInBatchLiquity, getUserAmountInBatchLiquity, getUserGasInBatchLiquity, getNumberOfUsersToCloseBatchLiquity, getTotalRequiredGasFeeToCloseBatchLiquity, getRemainingGasFeeToCloseBatch, getTotalTroveDebtLiquity, getUserDebtLiquity, getLUSDTotalSupply, getRequiredGasFeeToParticipateCurrrentBatchLiquity, checkAllowanceBorrowLiquity, checkAllowanceRepayLiquity, checkBalanceBorrowLiquity, checkTrove, buildCallDataApproveBorrowLiquity, buildCallDataApproveRepayLiquity, buildCallDataBorrowLiquity, buildCallDataRepayLiquity, checkBalanceRepayLiquity, handleBorrowLiquity, handleRepayLiquity, handleBorrowLiquityManual, handleRepayLiquityManual, getTimestampClosedBatchLiquity, getTotalTroveSupplyLiquity, isRedistributionLiquity, buildCallDataBatchLiquity, handleBatchLiquityManual } from './liquity';
 import { ErrorWrapper } from './utils/errorWrapper';
 import { getBalance, getAllowance, getTotalSupply, getGasPrice, buildApproveCall, estimateInvokeFee } from './utils/web3Utils';
 
@@ -85,10 +85,12 @@ export class NimboraSDK {
   public buildCallDataApproveRepayLiquity = buildCallDataApproveRepayLiquity.bind(this)
   public buildCallDataBorrowLiquity = buildCallDataBorrowLiquity.bind(this)
   public buildCallDataRepayLiquity = buildCallDataRepayLiquity.bind(this)
+  public buildCallDataBatchLiquity = buildCallDataBatchLiquity.bind(this)
 
   // Handlers
   public handleBorrowLiquity = handleBorrowLiquity.bind(this)
   public handleRepayLiquity = handleRepayLiquity.bind(this)
   public handleBorrowLiquityManual = handleBorrowLiquityManual.bind(this)
   public handleRepayLiquityManual = handleRepayLiquityManual.bind(this)
+  public handleBatchLiquityManual = handleBatchLiquityManual.bind(this)
 }

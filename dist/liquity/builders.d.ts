@@ -5,3 +5,4 @@ export declare function buildCallDataApproveBorrowLiquity(this: NimboraSDK, prop
 export declare function buildCallDataApproveRepayLiquity(this: NimboraSDK, props: BuildCallDataApproveRepayLiquityProps): BuildCallDataApproveRepayLiquityRes;
 export declare function buildCallDataBorrowLiquity(this: NimboraSDK, props: BuildCallDataBorrowLiquityProps): Call;
 export declare function buildCallDataRepayLiquity(this: NimboraSDK, props: BuildCallDataRepayLiquityProps): Call;
+export declare function buildCallDataBatchLiquity(this: NimboraSDK, troveAddress: string): Call;

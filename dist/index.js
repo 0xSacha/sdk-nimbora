@@ -58,11 +58,13 @@ var NimboraSDK = /** @class */ (function () {
         this.buildCallDataApproveRepayLiquity = liquity_1.buildCallDataApproveRepayLiquity.bind(this);
         this.buildCallDataBorrowLiquity = liquity_1.buildCallDataBorrowLiquity.bind(this);
         this.buildCallDataRepayLiquity = liquity_1.buildCallDataRepayLiquity.bind(this);
+        this.buildCallDataBatchLiquity = liquity_1.buildCallDataBatchLiquity.bind(this);
         // Handlers
         this.handleBorrowLiquity = liquity_1.handleBorrowLiquity.bind(this);
         this.handleRepayLiquity = liquity_1.handleRepayLiquity.bind(this);
         this.handleBorrowLiquityManual = liquity_1.handleBorrowLiquityManual.bind(this);
         this.handleRepayLiquityManual = liquity_1.handleRepayLiquityManual.bind(this);
+        this.handleBatchLiquityManual = liquity_1.handleBatchLiquityManual.bind(this);
         if (!provider) {
             throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.PROVIDER_REQUIRED });
         }

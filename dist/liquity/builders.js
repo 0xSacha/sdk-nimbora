@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.buildCallDataRepayLiquity = exports.buildCallDataBorrowLiquity = exports.buildCallDataApproveRepayLiquity = exports.buildCallDataApproveBorrowLiquity = void 0;
+exports.buildCallDataBatchLiquity = exports.buildCallDataRepayLiquity = exports.buildCallDataBorrowLiquity = exports.buildCallDataApproveRepayLiquity = exports.buildCallDataApproveBorrowLiquity = void 0;
 var addresses_1 = require("../config/addresses");
 var types_1 = require("../config/types");
 var errorWrapper_1 = require("../utils/errorWrapper");
@@ -94,3 +94,15 @@ function buildCallDataRepayLiquity(props) {
     return (repayCall);
 }
 exports.buildCallDataRepayLiquity = buildCallDataRepayLiquity;
+function buildCallDataBatchLiquity(troveAddress) {
+    if (!this.checkTrove(troveAddress)) {
+        throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.NOT_SUPPORTED_TROVE });
+    }
+    var batchCall = {
+        contractAddress: troveAddress,
+        entrypoint: "batch",
+        calldata: []
+    };
+    return (batchCall);
+}
+exports.buildCallDataBatchLiquity = buildCallDataBatchLiquity;

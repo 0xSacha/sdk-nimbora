@@ -193,6 +193,7 @@ export type HandleBorrowLiquityManualProps = {
   ethAmount: bigint,
   gas: bigint
   approveEth?: boolean,
+  includesBatch?: boolean,
   referral?: string;
 };
 
@@ -210,8 +211,17 @@ export type HandleRepayLiquityManualProps = {
   gas: bigint,
   approveLusd?: boolean,
   approveEth?: boolean,
+  includesBatch?: boolean,
   referral?: string;
 };
+
+export type HandleBatchLiquityManualProps = {
+  troveAddress: string,
+  gas: bigint,
+  approveEth?: boolean,
+  referral?: string;
+};
+
 
 
 

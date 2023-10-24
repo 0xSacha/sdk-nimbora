@@ -101,3 +101,15 @@ export function buildCallDataRepayLiquity(this: NimboraSDK, props: BuildCallData
     return (repayCall)
 }
 
+export function buildCallDataBatchLiquity(this: NimboraSDK, troveAddress: string): Call {
+    if (!this.checkTrove(troveAddress)) {
+        throw new ErrorWrapper({ code: ERROR_CODE.NOT_SUPPORTED_TROVE });
+    }
+    const batchCall: Call = {
+        contractAddress: troveAddress,
+        entrypoint: "batch",
+        calldata: []
+    }
+    return (batchCall)
+}
+
