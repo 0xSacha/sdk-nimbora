@@ -1,4 +1,4 @@
-import { Account, Call, Provider, constants } from 'starknet';
+import { Account, Call, Provider, RpcProvider, constants } from 'starknet';
 import { NimboraSDK } from '.';
 import { BuildCallDataApproveBorrowLiquityProps, BuildCallDataApproveRepayLiquityProps, BuildCallDataApproveRepayLiquityRes, BuildCallDataBorrowLiquityProps, BuildCallDataRepayLiquityProps } from './config/types';
 
@@ -13,10 +13,8 @@ describe('NimboraSDK Integration Tests', () => {
 
     let trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087"
     beforeAll(() => {
-        const provider_testnet = new Provider({
-            rpc: {
-                nodeUrl: "https://starknet-goerli.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
-            }
+        const provider_testnet = new RpcProvider({
+            nodeUrl: constants.StarknetChainId.SN_GOERLI
         });
         // const provider_mainnet = new Provider({
         //     rpc: {

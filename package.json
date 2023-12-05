@@ -1,6 +1,6 @@
 {
   "name": "nimbora-sdk",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Interact with your favorite L1 protocols, at a fraction of the cost of L2!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "@types/jest": "^29.5.4",
     "ethers": "^5.7.0",
     "jest": "^29.7.0",
-    "starknet": "^5.14.1"
+    "starknet": "^5.24.3"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",

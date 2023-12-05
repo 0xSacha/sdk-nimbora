@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NimboraSDK = void 0;
-var starknet_1 = require("starknet");
 var types_1 = require("./config/types");
 var contracts_1 = require("./config/contracts");
 var liquity_1 = require("./liquity");
@@ -75,12 +74,7 @@ var NimboraSDK = /** @class */ (function () {
         catch (e) {
             this.signer = undefined;
         }
-        if (chainId == starknet_1.constants.StarknetChainId.SN_GOERLI2) {
-            throw new errorWrapper_1.ErrorWrapper({ code: types_1.ERROR_CODE.UNSUPPORTED_CHAIN_ID });
-        }
-        else {
-            this.chainId = chainId;
-        }
+        this.chainId = chainId;
     }
     return NimboraSDK;
 }());

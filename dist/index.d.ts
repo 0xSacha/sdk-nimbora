@@ -1,9 +1,9 @@
-import { constants, Account, Provider, SignerInterface } from 'starknet';
+import { constants, Account, SignerInterface, RpcProvider } from 'starknet';
 export declare class NimboraSDK {
-    provider: Account | Provider;
+    provider: Account | RpcProvider;
     signer: SignerInterface | undefined;
     chainId: constants.StarknetChainId;
-    constructor(provider: Account | Provider | undefined, chainId: constants.StarknetChainId);
+    constructor(provider: Account | RpcProvider | undefined, chainId: constants.StarknetChainId);
     getBalance: (props: import("./config/types").GetBalanceProps) => Promise<bigint>;
     getAllowance: (props: import("./config/types").GetAllowanceProps) => Promise<bigint>;
     getTotalSupply: (tokenAddress: string) => Promise<bigint>;

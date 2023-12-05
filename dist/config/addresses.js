@@ -10,7 +10,6 @@ exports.LUSD_BY_CHAIN_ID = (_a = {},
     // Add descriptions for each chain ID
     _a[starknet_1.constants.StarknetChainId.SN_GOERLI] = '0x025731f5f9629ff74d1c5f787ad1ea0ebb9157210047f6c9e3a974f771550cf4',
     _a[starknet_1.constants.StarknetChainId.SN_MAIN] = '0x070a76fd48ca0ef910631754d77dd822147fe98a569b826ec85e3c33fde586ac',
-    _a[starknet_1.constants.StarknetChainId.SN_GOERLI2] = '0x025731f5f9629ff74d1c5f787ad1ea0ebb9157210047f6c9e3a974f771550cf4',
     _a);
 /**
  * Mapping of Trove information arrays by Starknet chain ID.
@@ -34,7 +33,6 @@ exports.TROVES_BY_CHAIN_ID = (_b = {},
             address: '0x02a67288e48a8c4e2881aee422da7841fc11fef195e0a81f929871c77f07509d'
         }
     ],
-    _b[starknet_1.constants.StarknetChainId.SN_GOERLI2] = [],
     _b);
 /**
  * Mapping of Liquity Manager addresses by Starknet chain ID.
@@ -43,7 +41,6 @@ exports.LIQUITY_MANAGER_BY_CHAIN_ID = (_c = {},
     // Add descriptions for each chain ID
     _c[starknet_1.constants.StarknetChainId.SN_GOERLI] = '0x7d62ab0cbdcab12bf4fc261caddd481fde3695b3689d43b35099806b50c719b',
     _c[starknet_1.constants.StarknetChainId.SN_MAIN] = '0x7d62ab0cbdcab12bf4fc261caddd481fde3695b3689d43b35099806b50c719b',
-    _c[starknet_1.constants.StarknetChainId.SN_GOERLI2] = '0x7d62ab0cbdcab12bf4fc261caddd481fde3695b3689d43b35099806b50c719b',
     _c);
 /**
  * Mapping of Oracle addresses by Starknet chain ID.
@@ -52,7 +49,6 @@ exports.ORACLE_BY_CHAIN_ID = (_d = {},
     // Add descriptions for each chain ID
     _d[starknet_1.constants.StarknetChainId.SN_GOERLI] = '0x5dd007c4a506f804c9f3cf3032ac14fa9efa6f1067c7cf20a7ff32351fea268',
     _d[starknet_1.constants.StarknetChainId.SN_MAIN] = '0x4b062835dc8e8249f0e0f54b77aeb2b83ec423d0148fa5d73cc9d49b2171756',
-    _d[starknet_1.constants.StarknetChainId.SN_GOERLI2] = '0x5dd007c4a506f804c9f3cf3032ac14fa9efa6f1067c7cf20a7ff32351fea268',
     _d);
 /**
  * Mapping of ETH token addresses by Starknet chain ID.
@@ -61,7 +57,6 @@ exports.ETH_BY_CHAIN_ID = (_e = {},
     // Add descriptions for each chain ID
     _e[starknet_1.constants.StarknetChainId.SN_GOERLI] = '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     _e[starknet_1.constants.StarknetChainId.SN_MAIN] = '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
-    _e[starknet_1.constants.StarknetChainId.SN_GOERLI2] = '',
     _e);
 /**
  * Retrieves the Liquity Manager address for a given Starknet chain ID.

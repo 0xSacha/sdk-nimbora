@@ -48,10 +48,8 @@ describe('NimboraSDK Integration Tests', function () {
     // let trove_mainnet = "0x03580a65260563b5511ddf2eafb83d6b309dce7fc25271df8c040a437f09a399";
     var trove = "0x057f1197af14b203fd3839bfb4e3830d636ac8502c3fcc639b98279deb059087";
     beforeAll(function () {
-        var provider_testnet = new starknet_1.Provider({
-            rpc: {
-                nodeUrl: "https://starknet-goerli.infura.io/v3/b084e10c633d411db2ecc557100fc3ab"
-            }
+        var provider_testnet = new starknet_1.RpcProvider({
+            nodeUrl: starknet_1.constants.StarknetChainId.SN_GOERLI
         });
         // const provider_mainnet = new Provider({
         //     rpc: {
