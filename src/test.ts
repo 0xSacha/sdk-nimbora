@@ -1,6 +1,5 @@
-import { Account, Call, Provider, RpcProvider, constants } from 'starknet';
+import { RpcProvider, constants } from 'starknet';
 import { NimboraSDK } from '.';
-import { BuildCallDataApproveBorrowLiquityProps, BuildCallDataApproveRepayLiquityProps, BuildCallDataApproveRepayLiquityRes, BuildCallDataBorrowLiquityProps, BuildCallDataRepayLiquityProps } from './config/types';
 
 describe('NimboraSDK Integration Tests', () => {
     let sdk: NimboraSDK;

@@ -1,4 +1,4 @@
-import { constants, Account, SignerInterface, RpcProvider } from 'starknet';
+import { constants, Account, SignerInterface, ProviderInterface } from 'starknet';
 import { ERROR_CODE } from './config/types';
 import { getEthContract, getTokenContract, getLiquityManagerContract, getTroveContract, getLusdContract, getOracleContract } from './config/contracts';
 import { getBatchGasUnitLiquity, getBatchGasUnitPerUserLiquity, getBatchGasFeePerUserLiquity, getGasTankLiquity, getAllowanceLiquity, getBatchCounterLiquity, getLastHandledBatchNonceLiquity, getUsersInBatchLiquity, getUserAmountInBatchLiquity, getUserGasInBatchLiquity, getNumberOfUsersToCloseBatchLiquity, getTotalRequiredGasFeeToCloseBatchLiquity, getRemainingGasFeeToCloseBatch, getTotalTroveDebtLiquity, getUserDebtLiquity, getLUSDTotalSupply, getRequiredGasFeeToParticipateCurrrentBatchLiquity, checkAllowanceBorrowLiquity, checkAllowanceRepayLiquity, checkBalanceBorrowLiquity, checkTrove, buildCallDataApproveBorrowLiquity, buildCallDataApproveRepayLiquity, buildCallDataBorrowLiquity, buildCallDataRepayLiquity, checkBalanceRepayLiquity, handleBorrowLiquity, handleRepayLiquity, handleBorrowLiquityManual, handleRepayLiquityManual, getTimestampClosedBatchLiquity, getTotalTroveSupplyLiquity, isRedistributionLiquity, buildCallDataBatchLiquity, handleBatchLiquityManual } from './liquity';
@@ -6,11 +6,11 @@ import { ErrorWrapper } from './utils/errorWrapper';
 import { getBalance, getAllowance, getTotalSupply, getGasPrice, buildApproveCall, estimateInvokeFee } from './utils/web3Utils';
 
 export class NimboraSDK {
-  public provider: Account | RpcProvider;
+  public provider: Account | ProviderInterface;
   public signer: SignerInterface | undefined;
   public chainId: constants.StarknetChainId;
 
-  constructor(provider: Account | RpcProvider | undefined, chainId: constants.StarknetChainId) {
+  constructor(provider: Account | ProviderInterface | undefined, chainId: constants.StarknetChainId) {
     if (!provider) {
       throw new ErrorWrapper({ code: ERROR_CODE.PROVIDER_REQUIRED });
     }
