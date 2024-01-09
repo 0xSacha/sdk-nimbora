@@ -47,7 +47,7 @@ export const LIQUITY_MANAGER_BY_CHAIN_ID: {
   [key in constants.StarknetChainId]: string;
 } = {
   // Add descriptions for each chain ID
-  [constants.StarknetChainId.SN_GOERLI]: '0x7d62ab0cbdcab12bf4fc261caddd481fde3695b3689d43b35099806b50c719b',
+  [constants.StarknetChainId.SN_GOERLI]: '0x041cb58275b82c690f7201d365dd1a89c740926abde67d7ec38d86a3927b7322',
   [constants.StarknetChainId.SN_MAIN]: '0x7d62ab0cbdcab12bf4fc261caddd481fde3695b3689d43b35099806b50c719b'
 };
 
