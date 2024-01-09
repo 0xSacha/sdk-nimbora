@@ -21,7 +21,7 @@ export const TROVES_BY_CHAIN_ID: {
 } = {
   [constants.StarknetChainId.SN_GOERLI]: [{
     id: '1',
-    address: '0x03b3e6f26fa0b0e932a356d5394d3bc43b098962bf7982f4204350c561aada2f'
+    address: '0x16a8a20fafbe9afa5ddeaa03640656192c9e39bf96a34e0135de866beba619b'
   },
   {
     id: '2',
